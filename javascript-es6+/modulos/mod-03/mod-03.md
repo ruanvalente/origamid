@@ -314,3 +314,90 @@ const $href = document.querySelector('a[href^="http"]')
 $href.setAttribute('href', 'http://github.com')
 console.log($href)
 ```
+
+# Dimensões e Distâncias.
+
+## Height e Width.
+
+Estas são propriedades e métodos dos objetos **Element** e **HTMLElement** , a maioria delas são Read Only.
+
+```js
+const section = document.querySelector('.animais')
+section.clientHeight // height + padding
+section.offsetHeight // height + padding + border
+section.scrollHeight // height total, mesmo dentro de scroll
+```
+
+> A mesma coisa para o Width, **clientWidth**.
+
+## offsetTop e o offsetLeft.
+
+```js
+const section = document.querySelector('.animais')
+
+// Distância entre o topo do elemento e o topo da página
+section.offsetTop
+
+// Distância entre o canto esquerdo do elemento  e o canto esquerdo da página
+section.offsetLeft
+```
+
+## getBoundingClientRect().
+
+Método que retorna um objeto com valores de width, height, distâncias do elemento e mais.
+
+```js
+const section = document.querySelector('.animais')
+const rect = section.getBoundingClientRect()
+rect.height // height do elemento
+rect.width // width do elemento
+rect.top // distância entre o topo do elemento e o scroll
+```
+
+## Window.
+
+O objeto window representa uma janela que contém um elemento DOM; a propriedade document aponta para o documento DOM document carregado naquela janela.
+
+```js
+window.innerWidth // width do janela
+window.outerWidth // soma dev tools também
+window.innerHeight // height do janela
+window.outerWidth // soma a barra de endereço
+window.pageYOffset // distância total do scroll horizontal
+window.pageXOffset // distância total do scroll vertical
+if (window.innerWidth < 600) {
+  console.log('Tela menor que 600px')
+}
+```
+
+[Para saber mais sobre o objeto window](https://developer.mozilla.org/pt-BR/docs/Web/API/Window)
+
+## matchMedia().
+
+Utilize um media-querie como no CSS para veri car a largura do browser.
+
+```js
+const small = window.matchMedia('(max-width: 600px)')
+if (small.matches) {
+  console.log('Tela menor que 600px')
+} else {
+  console.log('Tela maior que 600px')
+}
+```
+
+## Dicas:
+
+A ferramenta de desenvolvedor do Chrome armazena o seu histórico recente de seleção em uma variável especial acessível no console. No Inspetor de elementos, ou na página com 'Inspecionar elemento', é armazenada em $0. O segundo mais recente armazenado em $1 e assim por diante, até a \$4.
+
+## Exercícios
+
+```js
+// Verifique a distância da primeira imagem
+// em relação ao topo da página
+// Retorne a soma da largura de todas as imagens
+// Verifique se os links da página possuem
+// o mínimo recomendado para telas utilizadas
+// com o dedo. (48px/48px de acordo com o google)
+// Se o browser for menor que 720px,
+// adicione a classe menu-mobile ao menu
+```
