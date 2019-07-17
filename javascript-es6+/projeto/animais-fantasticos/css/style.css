@@ -215,3 +215,24 @@ body {
     margin-bottom: 0;
   }
 }
+
+/* Tabmenu */
+.js .js-tabcontent section {
+  display: none;
+}
+
+.js-tabcontent section.ativo {
+  display: block;
+  animation: show-menu-tab 0.5s forwards;
+}
+
+@keyframes show-menu-tab {
+  from {
+    opacity: 0;
+    transform: translate3d(-30px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: rotate3d(0, 0, 0);
+  }
+}
