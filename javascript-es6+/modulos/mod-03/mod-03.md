@@ -736,3 +736,101 @@ const $dd = $dt.nextElementSibling
 const $animals = document.querySelector('.animais')
 $faq.innerHTML = $animals.innerHTML
 ```
+
+# Navegação por Tabs.
+
+Apartir daqui daremos seguimento no que vimos nos 3 primeiros módulos. E assim iremos fazer uma navegação por tabs.
+
+## Adicionar Classes para Manipulação.
+
+A ideia de navegação por tabs, é ter uma lista de itens que controla a visualização de uma lista de conteúdo. Cada item da lista possui um conteúdo relacionado ao mesmo.
+
+```html
+<!-- Primeiro, adicionar classes que irão
+facilitar a manipulação dos elementos -->
+<ul class="animais-lista js-tabmenu">
+  ...
+</ul>
+<div class="animais-descricao js-tabcontent">
+  ...
+</div>
+```
+
+## Selecionar os items.
+
+```js
+const tabMenu = document.querySelectorAll('js-tabmenu li')
+const tabContent = document.querySelectorAll('js-tabmenu section')
+```
+
+Com os items já selecionados vamos criar uma função **activeTabs** que irá receber um parâmetro que será o **index** do elemento que está sendo clicado no momento.
+
+```js
+function activeTab(index) {
+  tabContent.forEach(content => {
+    content.classList.remove('ativo')
+  })
+  tabContent[index].classList.add('ativo')
+}
+```
+
+Iremos pecorer os elementos contidos dentro da variável **tabContent** onde vamos adicionar uma classe chamada **ativo** para o elemento.
+
+## Adicionar o Evento.
+
+Agora vamos adicionar um listener de evento em **tabMenu** que quando o elemento for clicado chamara a nossa função **activeTab**, assim adicionado a classe ativo ao elemento clicado.
+
+```js
+tabMenu.forEach((itemMenu, index) => {
+  itemMenu.addEventListener('click', () => {
+    activeTab(index)
+  })
+})
+```
+
+> Dentro do addEventListener, passamos o click e uma arrow function e dentro do corpo da arrow function que chamamos a nossa função activeTab e passamos o index do elemento que está sendo clicado.
+
+## Assim que Carregar.
+
+Podemos adicionar a classe ativo ao primeiro elemento e adicionar a classe js ao html. Assim identificamos se o JavaScript está habilitado ou não dentro da página.
+
+```html
+<!-- No head do borwser -->
+<script>
+  document.documentElement.className += ' js'
+</script>
+```
+
+Com isso fazemos uma pequena verificação que verifica se o elemento tabContent e tabMenu existem dentro da nossa página.
+
+```js
+// Verificar se existe elemento em tabContent e tabMenu
+if (tabContent.length && tabMenu.length) {
+  tabContent[0].classList.add('ativo')
+  // ..
+}
+```
+
+## Animação com CSS.
+
+Faremos uma pequena animação onde o nosso css, sai de **display none** para **display block**.
+
+```css
+.js .js-tabcontent section {
+  display: none;
+}
+.js-tabcontent section.ativo {
+  display: block !important;
+  animation: show 0.5s forwards;
+}
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: translate3d(-30px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0px, 0, 0);
+  }
+}
+```
