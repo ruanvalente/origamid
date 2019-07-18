@@ -236,3 +236,38 @@ body {
     transform: rotate3d(0, 0, 0);
   }
 }
+
+/* Accordion List */
+
+.js .js-accordion-list dd {
+  display: none;
+
+  animation: slide-down 0.5s forwards;
+}
+
+.js-accordion-list dt::after {
+  content: '⤵';
+  margin-left: 10px;
+
+  animation: slide-down 0.5s forwards;
+}
+
+.js-accordion-list dt.ativo::after {
+  content: '⤴';
+}
+
+.js-accordion-list dd.ativo {
+  display: block;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+
+  to {
+    opacity: 1;
+    max-height: 200px;
+  }
+}
