@@ -133,6 +133,7 @@ body {
   margin-top: 2rem;
   margin-bottom: 0.5rem;
   color: #e54;
+  cursor: pointer;
 }
 
 .faq-lista dt::before {
@@ -241,14 +242,12 @@ body {
 
 .js .js-accordion-list dd {
   display: none;
-
   animation: slide-down 0.5s forwards;
 }
 
 .js-accordion-list dt::after {
   content: '⤵';
   margin-left: 10px;
-
   animation: slide-down 0.5s forwards;
 }
 

@@ -37,5 +37,21 @@ function initAccordion() {
   }
 }
 
+function initScroll() {
+  const $internalLinks = document.querySelectorAll('a[href^="#"]')
+
+  function scrollLinks(event) {
+    event.preventDefault()
+    const href = this.getAttribute('href')
+    const $toSection = document.querySelector(href)
+    $toSection.scrollIntoView({
+      inline: 'start',
+      behavior: 'smooth'
+    })
+  }
+  $internalLinks.forEach(link => link.addEventListener('click', scrollLinks))
+}
+
+initScroll()
 initAccordion()
 initTabMenu()
