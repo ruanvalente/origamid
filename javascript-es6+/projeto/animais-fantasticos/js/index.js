@@ -52,6 +52,21 @@ function initScroll() {
   $internalLinks.forEach(link => link.addEventListener('click', scrollLinks))
 }
 
+function initSectionScroll() {
+  const $scrollSection = document.querySelectorAll('.js-scroll')
+
+  function activeScrollSection(event) {
+    $scrollSection.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top
+      if (sectionTop < 0) {
+        section.classList.add('ativo')
+      }
+    })
+  }
+  window.addEventListener('scroll', activeScrollSection)
+}
+
+initSectionScroll()
 initScroll()
 initAccordion()
 initTabMenu()
