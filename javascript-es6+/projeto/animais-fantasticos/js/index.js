@@ -55,15 +55,19 @@ function initScroll() {
 function initSectionScroll() {
   const $scrollSection = document.querySelectorAll('.js-scroll')
 
-  function activeScrollSection(event) {
-    $scrollSection.forEach(section => {
-      const sectionTop = section.getBoundingClientRect().top
-      if (sectionTop < 0) {
-        section.classList.add('ativo')
-      }
-    })
+  if ($scrollSection.length) {
+    function activeScrollSection() {
+      $scrollSection.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top
+        const halfOfTheWindow = sectionTop - window.innerHeight * 0.6
+        if (halfOfTheWindow < 0) {
+          section.classList.add('ativo')
+        }
+      })
+    }
+    activeScrollSection()
+    window.addEventListener('scroll', activeScrollSection)
   }
-  window.addEventListener('scroll', activeScrollSection)
 }
 
 initSectionScroll()
