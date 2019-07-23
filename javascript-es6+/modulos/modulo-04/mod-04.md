@@ -206,3 +206,141 @@ const $li = new DOM('li')
 $li.addClass('active')
 $li.removeClass('active')
 ```
+
+## Prototype.
+
+A propriedade prototype é um objeto adicionado a uma função quando a mesma é criada.
+
+```js
+function Pessoa(nome, idade) {
+  this.nome = nome
+  this.idade = idade
+}
+
+const ruan = new Pessoa('Ruan', 24)
+
+console.log(Pessoa.prototype) // retorna o objeto
+console.log(ruan.prototype) // undefined
+```
+
+## funcao.prototype.
+
+É possível adicionar novas propriedades e métodos ao objeto prototype.
+
+```js
+Pessoa.prototype.andar = function() {
+  return this.nome + ' andou'
+}
+
+Pessoa.prototype.nadar = function() {
+  return this.nome + ' nadou'
+}
+
+console.log(Pessoa.prototype) // retorna o objeto
+```
+
+## Acesso ao Protótipo.
+
+O objeto criado utilizando o construtor, possui acesso aos métodos e propriedades ao protótipo deste construtor. Lembrando, prototype é uma propriedade de função apenas.
+
+```js
+const ruan = new Pessoa('Ruan', 24)
+
+ruan.nome
+ruan.idade
+ruan.andar()
+ruan.nadar()
+```
+
+## proto
+
+O novo objeto acessa os métodos e propriedades do protótipo através da propriedade **proto**. É o papel da engine fazer essa busca, não devemos falar com **proto** diretamente.
+
+```js
+// Acessam o mesmo método, mas __proto__ não terá acesso ao this.nome
+ruan.andar()
+ruan.__proto__.andar()
+```
+
+## Herança de Protótipo.
+
+O objeto possui acesso aos métodos e propriedades do protótipo do construtor responsável por criar este objeto. O objeto abaixo possui acesso a métodos que nunca definimos, mas são herdados do protótipo de **Object**.
+
+```js
+Object.prototype
+ruan.toString()
+ruan.isPrototypeOf()
+ruan.valueOf()
+```
+
+## Construtores Nativos.
+
+Objetos, Funções, Números, Strings e outros tipos de dados são criados utilizando construtores. Esses contrutores possuem um protótipo com propriedade e métodos, que poderão ser acessadas pelo tipo de dado.
+
+```js
+const pais = 'Brasil'
+const cidade = new String('Pará')
+
+pais.charAt(0) // B
+cidade.charAt(0) // P
+
+String.prototype
+```
+
+## É possível acessar a função do protótipo.
+
+É comum, principalmente em códigos mais antigos, o uso direto de funções do protótipo do construtor Array.
+
+```js
+const lista = document.querySelectorAll('li')
+
+// Transforma em uma Array.
+const listaArray = Array.prototype.slice.call(lista)
+```
+
+> Existe o método Array.from(), que faz o mesmo processo em transforma um Array like para Array.
+
+## Método do Objeto vs Protótipo.
+
+Nos objetos nativos existem métodos linkados diretamente ao Objeto e outros linkados ao protótipo.
+
+```js
+Array.prototype.slice.call(lista)
+Array.from(lista)
+
+// Retorna uma lista com os métodos / propriedades.
+Object.getOwnPropertyNames(Array)
+Object.getOwnPropertyNames(Array.prototype)
+```
+
+> dado.constructor.name, retorna o nome do constructor.
+
+## Apenas os métodos do protótipo são herdados.
+
+```js
+const list = [1, 2, 3].slice() // existe
+const list2 = [1, 2, 3].from() // não existe
+```
+
+## Entenda o que está sendo retornado.
+
+Os métodos e propriedades acessados com o **.** são referentes ao tipo de dados que é retornado antes desse **.**
+
+```js
+const Carro = {
+  marca: 'Ford',
+  preco: 2000,
+  acelerar() {
+    return true
+  }
+}
+
+Carro // Object
+Carro.marca // String
+Carro.acelerar // Function
+Carro.acelerar() // Boolean
+Carro.marca.charAt // Function
+Carro.marca.charAt(0) // String
+```
+
+> Verifique o nome do construtor.
