@@ -172,11 +172,37 @@ const pessoa = {
   }
 }
 
+function Person(nome, idade) {
+  this.nome = nome
+  this.idade = idade
+
+  this.andar = function() {
+    console.log(this.nome + ' andou')
+  }
+}
 // Crie 3 pessoas, João - 20 anos, Maria - 25 anos, Bruno - 15 anos
+const joao = new Person('João', 20)
+const maria = new Person('Maria', 25)
+const bruno = new Person('Bruno', 15)
 
 // Crie uma Constructor Function (DOM) para manipulação de listas de elementos do DOM. Deve Conter as seguintes propriedades e métodos.
 
 /// Elements: Retorna uma NodeList com os elementos selecionados
 // AddClass(classe): Adiciona a classe a todos os elementos
 // removeClass(classe): Remove a classe a todos os elementos.
+
+function DOM(selector) {
+  const elementList = document.querySelectorAll(selector)
+  this.element = elementList
+  this.addClass = function addClass(classe) {
+    element.forEach(element => element.classList.add(classe))
+  }
+  this.removeClass = function removeClass(classe) {
+    element.forEach(element => element.classList.remove(classe))
+  }
+}
+
+const $li = new DOM('li')
+$li.addClass('active')
+$li.removeClass('active')
 ```
