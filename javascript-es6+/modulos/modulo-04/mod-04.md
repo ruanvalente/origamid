@@ -172,12 +172,12 @@ const pessoa = {
   }
 }
 
-function Person(nome, idade) {
-  this.nome = nome
-  this.idade = idade
+function Person(name, age) {
+  this.name = name
+  this.age = age
 
   this.andar = function() {
-    console.log(this.nome + ' andou')
+    console.log(this.name + ' andou')
   }
 }
 // Crie 3 pessoas, João - 20 anos, Maria - 25 anos, Bruno - 15 anos
@@ -344,3 +344,42 @@ Carro.marca.charAt(0) // String
 ```
 
 > Verifique o nome do construtor.
+
+```js
+// Crie uma função construtora de Pessoas, deve conter nome, sobrenome e idade.
+// Crie um método no protótipo que retorne o nome completo da pessoa.
+
+function Person(name, lastName, age) {
+  this.name = name
+  this.lastName = lastName
+  this.age = age
+}
+
+Person.prototype.fullName = function fullName() {
+  return this.name + ' ' + this.lastName
+}
+
+const ruan = new Person('Ruan', 'Valente', 24)
+console.log(ruan.fullName())
+
+// Liste os métodos acessados por dados criados com NodeList, HTMLCollection, Document.
+function listMethods(method) {
+  return Object.getOwnPropertyNames(method.prototype)
+}
+console.log(listMethods(NodeList))
+console.log(listMethods(HTMLCollection))
+console.log(listMethods(Document))
+
+// Liste os construtores dos dados abaixo.
+const li = document.querySelector('li')
+li // "HTMLLIElement"
+li.click // "Function"
+li.innerText // "String"
+li.value // "Number"
+li.hidden // "Boolean"
+li.offsetLeft // "Number"
+li.click() // // undefined
+
+// Qual o construtor do dado abaixo:
+li.hidden.constructor.name // "String
+```
