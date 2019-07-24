@@ -680,3 +680,81 @@ valor.trim() // 'R$ 23.00'
 valor.trimStart() //  'R$ 23.00  '
 valor.trimEnd() // '  R$ 23.00'
 ```
+
+## Exercícios.
+
+```js
+// Utilizando o foreach na Array abaixo, some os valores de Taxa e os valores de Recebimento.
+const transacoes = [
+  {
+    descricao: 'Taxa do Pão',
+    valor: 'R$ 39'
+  },
+  {
+    descricao: 'Taxa do Mercado',
+    valor: 'R$ 129'
+  },
+  {
+    descricao: 'Recebimento de Cliente',
+    valor: 'R$ 99'
+  },
+  {
+    descricao: 'Taxa do Banco',
+    valor: 'R$ 129'
+  },
+  {
+    descricao: 'Recebimento de Cliente',
+    valor: 'R$ 49'
+  }
+]
+
+let valorTotalTaxa = 0
+let valorTotalRecebimento = 0
+
+transacoes.forEach(transacao => {
+  if (transacao.descricao.includes('Taxa')) {
+    let taxa = Number(transacao.valor.replace('R$', ''))
+    valorTotalTaxa += taxa
+  }
+  if (transacao.descricao.includes('Recebimento')) {
+    let recebimento = Number(transacao.valor.replace('R$', ''))
+    valorTotalRecebimento += recebimento
+  }
+})
+
+console.log(valorTotalTaxa)
+console.log(valorTotalRecebimento)
+
+// Retorne uma array com a lista abaixo
+const transportes = 'Carro;Avião;Trem;Ônibus;Bicicleta'
+console.log(transportes.split(';'))
+
+// Substitua todos os span's por a's
+const html = `<ul>
+              <li><span>Sobre</span></li>
+              <li><span>Produtos</span></li>
+              <li><span>Contato</span></li>
+              </ul>`
+console.log(html.replace(/span/g, 'a'))
+
+// Retorne o último caracter da frase
+const frase = 'Melhor do ano!'
+console.log(frase[frase.length - 1])
+
+// Retorne o total de taxas
+const transacoes2 = [
+  'Taxa do Banco',
+  'TAXA DO PÃO',
+  'taxa do mercado',
+  'depósito Bancário',
+  'TARIFA especial'
+]
+let totalDeTaxas = 0
+transacoes2.forEach(transacao => {
+  if (transacao.match(/taxa/gi)) {
+    totalDeTaxas++
+  }
+})
+
+console.log(totalDeTaxas)
+```
