@@ -476,4 +476,26 @@ Application Programming Interface, é uma interface de software criada para a in
 ## Exercícios.
 
 ```js
+// Liste 5 objetos nativos
+String
+Function
+Boolean
+Number
+Array
+// Liste 5 objetos do browser
+Window
+HTMLCollection
+localStorage
+NodeList
+History
+// Liste 2 Métodos, Propriedades ou Objetos
+// presentes no Chrome que não existem no Firefox
+if (
+  typeof window.webkitMediaStream &&
+  typeof window.webkitSpeechGrammar !== 'undefined'
+) {
+  console.log('tem')
+} else {
+  console.log('Não tem')
+}
 ```
