@@ -758,3 +758,134 @@ transacoes2.forEach(transacao => {
 
 console.log(totalDeTaxas)
 ```
+
+## Number e Math.
+
+## Number.
+
+É a construtora de números, todo número possui as propriedades e métodos do prototypede Number. Number também possui alguns métodos.
+
+```js
+const ano = 2019
+const preco = new Number(99)
+```
+
+## Number.isNaN() e Number.isInteger().
+
+isNaN() é um método de Number, ou seja, não faz parte do protótipo. O método isInteger() determina se o valor passado é um inteiro.
+
+```js
+Number.isNaN(NaN) // true
+Number.isNaN(22) // false
+Number.isInteger(20) // true
+Number.isInteger(23.5) // false
+```
+
+## Number.parseFloat() e Number.parseInt().
+
+parseFloat() serve para retornarmos um número a partir de uma string. A String deve começar com um número. parseInt recebe também um segundo parâmetro que é o Randix, 10 é para decimal.
+
+```js
+parseFloat('99.50') // Mesma função sem o Number
+Number.parseFloat('99.50') // 99.5
+Number.parseFloat('100 Reais') // 100
+Number.parseFloat('R$ 100') // NaN
+
+parseInt('99.50', 10) // 99
+parseInt(5.43434355555, 10) // 5
+Number.parseInt('100 Reais', 10) // 100
+```
+
+> Float possui decimal, Integer não.
+
+## n.toFixed(decimais).
+
+Arredonda o número com base no total de casas decimais do argumento.
+
+```js
+const preco = 2.99
+preco.toFixed() // 3
+
+const carro = 1000.455
+carro.toFixed(2) // 1000.46
+
+const preco2 = 1499.49
+preco2.toFixed() // 1499
+```
+
+## n.toString(radix).
+
+Transforma o número em uma string com base no Radix. Use o 10 para o sistema decimal.
+
+```js
+const preco = 2.99
+preco.toString(10)
+```
+
+## n.toLocaleString(lang, options).
+
+Formata o número de acordo com a língua e opções passadas.
+
+```js
+const preco = 59.9
+preco.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) // $59.90
+preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) // R$ 59,90
+```
+
+## Math.
+
+É um Objeto nativo que possui propriedades e métodos de expressões matemáticas comuns.
+
+```js
+Math.PI // 3.14159
+Math.E // 2.718
+Math.LN10 // 2.303
+```
+
+> Mais sobre o objeto [Math](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math)
+
+## Math.abs(), Math.ceil(), Math.floor() e Math.round().
+
+O método **abs()** retorna um valor absoluto, ou seja, transforma negativo em positivo.
+O método **ceil()** arrendonda para cima, retornando sempre um número inteiro e o método **floor()** para baixo.
+O método **round()** arredonda para o número inteiro mais próximo.
+
+```js
+Math.abs(-5.5) // 5.5
+Math.ceil(4.8334) // 5
+Math.ceil(4.3) // 5
+Math.floor(4.8334) // 4
+Math.floor(4.3) // 4
+Math.round(4.8334) // 5
+Math.round(4.3) // 4
+```
+
+## Math.max(), Math.min() e Math.random().
+
+O método **max()** retorna o maior número de uma lista de argumentos, o método **min()** retorna o menor número dentre os argumentos da lista. O método **random()** gera um número aleatório entre 0 e 1.
+
+```js
+Math.max(5, 3, 10, 42, 2) // 42
+Math.min(5, 3, 10, 42, 2) // 2
+Math.random() // 0.XXX
+Math.floor(Math.random() * 100) // entre 0 e 100
+Math.floor(Math.random() * 500)
+// entre 0 e 500
+// Número random entre 72 e 32
+Math.floor(Math.random() * (72 - 32 + 1)) + 32
+Math.floor(Math.random() * (max - min + 1)) + min
+```
+
+## Exercícios.
+
+```js
+// Retorne um número aleatório entre 1050 e 2000
+
+// Retorne o maior número da lista abaixo
+const numeros = '4, 5, 20, 8, 9'
+// Crie uma função para limpar os preços
+// e retornar os números com centavos arredondados
+// depois retorne a soma total.
+const listaPrecos = = ['R$ 59,99', ' R$ 100,222',
+                      'R$ 230   ', 'r$  200'];
+```
