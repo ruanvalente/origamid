@@ -1182,3 +1182,284 @@ carros.pop()
 console.log(carros)
 console.log(carrosCopia)
 ```
+
+## Array e Iteração.
+
+## [].forEach().
+
+**[].forEach(callback(itemAtual, index, array))** a função de callback é executada para cada item da Array. Ela possui três argumentos, itemAtual (valor do item da array), index (index da array) e array (array original).
+
+```js
+const carros = ['Ford', 'Fiat', 'Honda']
+carros.forEach(function(item, index, array) {
+  console.log(item.toUpperCase())
+})
+// com Arrow Function
+carros.forEach((item, index, array) => {
+  console.log(item.toUpperCase())
+})
+```
+
+> O método sempre retorna undefined.
+
+## Arrow Function.
+
+Uma expressão [arrow function](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Functions/Arrow_functions) possui uma sintaxe mais curta quando comparada a uma expressão de função (function expression) e não tem seu próprio this, arguments, super ou new.target. Estas expressões de funções são melhor aplicadas para funções que não sejam métodos, e elas não podem ser usadas como construtoras (constructors).
+
+```js
+const li = document.querySelectorAll('li')
+li.forEach(i => i.classList.add('ativa'))
+
+li.forEach(function(item) {
+  item.classList.add('ativa')
+})
+```
+
+## Modificar a Array Original.
+
+O terceiro argumento do callback é uma referência direta e se modificado irá também modificar a array original.
+
+```js
+const carros = ['Ford', 'Fiat', 'Honda']
+carros.forEach((item, index, array) => {
+  array[index] = 'Carro ' + item
+})
+carros // ['Carro Ford', 'Carro Fiat', 'Carro Honda']
+```
+
+> É melhor utilizarmos o map para isso.
+
+## [].map().
+
+**[].map(callback(itemAtual, index, array))** funciona da mesma forma que o forEach(), porém ao invés de retornar undefined, retorna uma nova array com valores atualizados de acordo com o return de cada iteração.
+
+```js
+const carros = ['Ford', 'Fiat', 'Honda']
+const newCarros = carros.map(item => {
+  return 'Carro ' + item
+})
+carros // ['Ford', 'Fiat', 'Honda']
+newCarros // ['Carro Ford', 'Carro Fiat', 'Carro Honda'];
+```
+
+## Valor retornado.
+
+Se não retornarmos nenhum valor durante a iteração utilizando map, o valor retornado como de qualquer função que não possui o return, será undefined.
+
+```js
+const carros = ['Ford', 'Fiat', 'Honda']
+const newCarros = carros.map(item => {
+  const novoValor = 'Carro ' + item
+})
+newCarros // [undefined, undefined, undefined];
+```
+
+## Arrow Function e [].map().
+
+Uma Arrow Function de linha única e sem chaves irá retornar o valor após a fat arrow **=>**.
+
+```js
+const numeros = [2, 4, 6, 8, 10, 12, 14]
+const numerosX3 = numeros.map(n => n * 3)
+numerosX3 // [6, 12, 18, 24, 30, 36, 42];
+```
+
+## [].map() vs [].forEach().
+
+Se o objetivo for modificar os valores da array atual, sempre utilize o map, pois assim uma nova array com os valores modificados é retornada e você pode imediatamente iterrar novamente sobre estes valores.
+
+```js
+const numeros = [2, 4, 6, 8, 10, 12, 14]
+const numerosX3 = numeros.map(n => n * 3)
+numerosX3 // [6, 12, 18, 24, 30, 36, 42];
+```
+
+## [].map() com Objetos.
+
+Map pode ser útil para interagirmos com uma array de objetos, onde desejamos isolar um valor único de cada objeto.
+
+```js
+const aulas = [
+  {
+    nome: 'HTML 1',
+    min: 15
+  },
+  {
+    nome: 'HTML 2',
+    min: 10
+  },
+  {
+    nome: 'CSS 1',
+    min: 20
+  },
+  {
+    nome: 'JS 1',
+    min: 25
+  }
+]
+
+const puxarNomes = aulas.map(aula => aula.nome)
+console.log(puxarNomes)
+// ['HTML 1', 'HTML 2', 'CSS 1', 'JS 1']
+```
+
+## [].reduce().
+
+**[].reduce(callback(acumulador, valorAtual, index,array), valorInicial)** executa a função de callback para cada item da Array. Um valor especial existe nessa função de callback, ele é chamado de **acumulador**, mas é na verdade apenas o retorno da iteração anterior.
+
+```js
+const aulas = [10, 25, 30]
+const total1 = aulas.reduce((acumulador, atual) => {
+  return acumulador + atual
+})
+total1 // 65
+const total2 = aulas.reduce((acc, cur) => acc + cur, 100)
+total2 // 165
+```
+
+## Reduce Passo a Passo 1.
+
+O primeiro parâmetro do callback é o valor do segundo argumento passado do reduce (callback inicial) durante a primeira iteração. Nas iterações seguintes este valor passa a ser retornado pela anterior.
+
+```js
+const aulas = [10, 25, 30]
+// 1
+aulas.reduce((0, 10) => {
+  return 0 + 10
+}, 0) // retorna 10
+
+// 2
+aulas.reduce((10, 25) => {
+  return 10 + 25
+}, 0) // retorna 35
+
+// 3
+aulas.reduce((35, 30) => {
+  return 35 + 3
+}, 0) // retorna 65
+```
+
+## Reduce Passos a Passos 2.
+
+Se não definirmos o valor inicial do acumulador, ele irá **pular** a primeira iteração e começara a partir da segunda. Nesse caso o valor acumulador será o valor do item da primeira iteração.
+
+```js
+const aulas = [10, 25, 30]
+// 1
+aulas.reduce((10, 25) => {
+  return 10 + 25
+}) // retorna 35
+// 2
+aulas.reduce((35, 30) => {
+  return 35 + 30
+}) // retorna 65
+```
+
+## Outros exemplos com o reduce.
+
+Podemos verificar qual é o maior valor dentro do Array.
+
+```js
+const numeros = [10, 25, 60, 5, 35, 10]
+const maiorValor = numeros.reduce((anterior, atual) => {
+  return anterior < atual ? atual : anterior
+})
+maiorValor // 60
+```
+
+## [].reduceRight().
+
+Existe também o método **[].reduceRight()**, a diferença é que este começa a iterar da direita para a esquerda, enquanto o reduce itera da esquerda para a direita.
+
+```js
+const frutas = ['Banana', 'Pêra', 'Uva']
+const frutasRight = frutas.reduceRight((acc, fruta) => acc + '' + fruta)
+const frutasLeft = frutas.reduce((acc, fruta) => acc + ' ' + fruta)
+frutasRight // Uva Pêra Banana
+frutasLeft // Banana Pêra Uva
+```
+
+## [].some().
+
+**[].some()**, se pelo menos um return da iteração for truthy, ele retorna true.
+
+```js
+const frutas = ['Banana', 'Pêra', 'Uva']
+const temUva = frutas.some(fruta => {
+  return fruta === 'Uva'
+}) // true
+function maiorQue100(numero) {
+  return numero > 100
+}
+const numeros = [0, 43, 22, 88, 101, 2]
+const temMaior = numeros.some(maiorQue100) // true
+```
+
+## [].every().
+
+**[].every()**, se todos os returns das iterações forem truthy, o método irá retornar true. Se pelo menos um for falsy, ele irá retornar false.
+
+```js
+const frutas = ['Banana', 'Pêra', 'Uva', '']
+// False pois pelo menos uma fruta
+// está vazia '', o que é um valor falsy
+const arraysCheias = frutas.every(fruta => {
+  return fruta // false
+})
+const numeros = [6, 43, 22, 88, 101, 29]
+const maiorQue3 = numeros.every(x => x > 3) // true
+```
+
+## [].find() e [].findIndex().
+
+**[].find()**, retorna o valor atual da primeira iteração que retorna um valor truthy. Já o **[].findIndex()**, ao invés de retornar o valor, retorna o index deste valor na array.
+
+```js
+const frutas = ['Banana', 'Pêra', 'Uva', 'Maçã']
+const buscaUva = frutas.findIndex(fruta => {
+  return fruta === 'Uva'
+}) // 2
+const numeros = [6, 43, 22, 88, 101, 29]
+const buscaMaior45 = numeros.find(x => x > 45) // 88
+```
+
+## [].filter().
+
+**[].filter()**, retorna uma array com a lista de valoresque durante a sua iteração retornam um valor truthy.
+
+```js
+const frutas = ['Banana', undefined, null, '', 'Uva', 0, 'Maçã']
+const arrayLimpa = frutas.filter(fruta => {
+  return fruta
+}) // ['Banana', 'Uva', 'Maçã']
+const numeros = [6, 43, 22, 88, 101, 29]
+const buscaMaior45 = numeros.filter(x => x > 45) // [88, 101]
+```
+## Outros exemplos com o filter.
+
+Podemos usar o filter para filtrar apenas as aulas com tempo maior do que 15 minutos.
+```js
+const aulas = [
+  {
+    nome: 'HTML 1',
+    min: 15
+  },
+  {
+    nome: 'HTML 2',
+    min: 10
+  },
+  {
+    nome: 'CSS 1',
+    min: 20
+  },
+  {
+    nome: 'JS 1',
+    min: 25,
+  }
+]
+
+const aulasMaiores = aulas.filter(aula => aula.min > 15)
+// [ { nome: 'CSS 1', min: 20 }, { nome: 'JS 1', min: 25 } ]
+```
+
+## Exercícios
