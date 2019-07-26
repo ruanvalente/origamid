@@ -1435,9 +1435,11 @@ const arrayLimpa = frutas.filter(fruta => {
 const numeros = [6, 43, 22, 88, 101, 29]
 const buscaMaior45 = numeros.filter(x => x > 45) // [88, 101]
 ```
+
 ## Outros exemplos com o filter.
 
 Podemos usar o filter para filtrar apenas as aulas com tempo maior do que 15 minutos.
+
 ```js
 const aulas = [
   {
@@ -1454,7 +1456,7 @@ const aulas = [
   },
   {
     nome: 'JS 1',
-    min: 25,
+    min: 25
   }
 ]
 
@@ -1463,3 +1465,100 @@ const aulasMaiores = aulas.filter(aula => aula.min > 15)
 ```
 
 ## Exercícios
+
+```html
+<section class="curso">
+  <h1>Web Design Completo</h1>
+  <p>
+    Este curso é para quem deseja entrar ou já está no mercado de criação de
+    websites.
+  </p>
+  <span class="aulas">80</span>
+  <span class="horas">22</span>
+</section>
+<section class="curso">
+  <h1>WordPress Como CMS</h1>
+  <p>
+    No curso de WordPress Como CMS, você aprende do zero como pegar qualquer
+    site em HTML e torná-lo totalmente gerenciável com a plataforma do
+    WordPress.
+  </p>
+  <span class="aulas">46</span>
+  <span class="horas">9</span>
+</section>
+<section class="curso">
+  <h1>UI Design Avançado</h1>
+  <p>Este é um curso avançado de User Interface Design.</p>
+  <span class="aulas">55</span>
+  <span class="horas">15</span>
+</section>
+```
+
+```js
+'use strict'
+
+// Selecione cada curso e retorne uma array
+// com objetos contendo o título, descricao,
+// aulas e horas de cada curso
+
+const cursos = document.querySelectorAll('.curso')
+const cursoParaArray = Array.from(cursos)
+
+const cursosParaObjeto = cursoParaArray.map(curso => {
+  const titulo = curso.querySelector('h1').innerText
+  const descricao = curso.querySelector('p').innerText
+  const aulas = curso.querySelector('.aulas').innerText
+  const horas = curso.querySelector('.horas').innerText
+
+  return {
+    titulo: titulo,
+    descricao: descricao,
+    aulas: aulas,
+    horas: horas
+  }
+})
+
+console.log(cursosParaObjeto)
+
+// Retorne uma lista com os
+// números maiores que 100
+const numeros = [3, 44, 333, 23, 122, 322, 33]
+const maioresQue100 = numeros.filter(numero => numero > 100)
+console.log(maioresQue100)
+
+// Verifique se Baixo faz parte
+// da lista de instrumentos e retorne true
+const instrumentos = ['Guitarra', 'Baixo', 'Bateria', 'Teclado']
+console.log(instrumentos.some(instrumento => instrumento === 'Baixo'))
+
+// Retorne o valor total das compras
+const compras = [
+  {
+    item: 'Banana',
+    preco: 'R$ 4,99'
+  },
+  {
+    item: 'Ovo',
+    preco: 'R$ 2,99'
+  },
+  {
+    item: 'Carne',
+    preco: 'R$ 25,49'
+  },
+  {
+    item: 'Refrigerante',
+    preco: 'R$ 5,35'
+  },
+  {
+    item: 'Quejo',
+    preco: 'R$ 10,60'
+  }
+]
+
+const total = compras.reduce((acumulador, atual) => {
+  let formatarPreco = Number(atual.preco.replace('R$ ', '').replace(',', '.'))
+  return formatarPreco + acumulador
+}, 0)
+
+console.log(total)
+```
