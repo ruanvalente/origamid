@@ -1562,3 +1562,128 @@ const total = compras.reduce((acumulador, atual) => {
 
 console.log(total)
 ```
+
+# Functions.
+
+Toda função é criada com o construtor Function e por isso herda as suas propriedades e métodos.
+
+```js
+function areaQuadrado(lado) {
+  return lado * lado
+}
+
+const perimetroQuadrado = new Function('lado', 'return lado * 4')
+```
+
+## Propriedades.
+
+**Function.length** retorna o total de argumentos da função. **Function.name** retorna uma string contendo o nome da função.
+
+```js
+function somar(n1, n2) {
+  return n1 + n2
+}
+
+somar.length // 2
+somar.name // 'somar'
+```
+
+## Function.call().
+
+**function.call(this, arg1, arg2, ...)**. executa a função sendo possível passarmos uma nova referência ao _this_ para a mesma.
+
+```js
+const carro = {
+  marca: 'Fiat',
+  ano: 2010
+}
+
+function descricaoCarro() {
+  console.log(this.marca + ' ' this.ano)
+}
+
+descricaoCarro() // undefined undefined
+descricaoCarro.call() // undefined undefined
+descricaoCarro.call(carro) // 'Fiat 2010'
+```
+
+## This.
+
+O valor de this faz referência ao objeto criado durante a construção do objeto (Constructor Function). Podemos trocar a referência do método ao this, utilizando o método **call(this)**, passando a nova referência para o _this_.
+
+```js
+const carros = ['Ford', 'Fiat', 'VW']
+
+carros.forEach(item => {
+  console.log(item)
+}) // Log de cada Carro
+
+carros.forEach.call(carros, item => {
+  console.log(item)
+}) // Log de cada Carro
+
+const frutas = ['Banana', 'Pêra', 'Uva']
+
+carros.forEach.call(frutas, item => {
+  console.log(item)
+}) // Log de cada Fruta
+```
+
+## Exemplos Reais.
+
+O objeto atribuído a **lista** será substituído pelo primeiro argumento do método **call()**.
+
+```js
+function DOM(seletor) {
+  this.element = document.querySelector(seletor)
+}
+DOM.prototype.ativo = function(classe) {
+  this.element.classList.add(classe)
+}
+const lista = new DOM('ul')
+lista.ativo('ativar')
+console.log(lista)
+```
+
+## O Objeto deve ser parecido.
+
+O novo valor de _this_ deve ser semelhante a estrutura do valor do _this_ original do método. Caso contrário o método não conseguirá interagir de forma correta com o novo valor de _this_.
+
+```js
+const novoSeletor = {
+  element: document.querySelector('li')
+}
+
+DOM.prototype.ativo.call(novoSeletor, 'ativar')
+```
+
+## Array's e Call.
+
+É comum utilizamos o **call()** nas funções do protótipo do construtor Array. Assim podemos estender todos os métodos de Array à objetos que parecem com uma Array (array-like).
+
+```js
+Array.prototype.mostreThis = function() {
+  console.log(this)
+}
+const frutas = ['Uva', 'Maçã', 'Banana']
+frutas.mostreThis() // ['Uva', 'Maçã', 'Banana']
+
+Array.prototype.pop.call(frutas) // Remove Banana
+frutas.pop() // Mesma coisa que a função acima
+```
+
+## Array-like.
+
+HTMLCollection, NodeList e demais objetos do DOM, são parecidos com uma Array. Por isso conseguimos utilizar os mesmos nas substituição do _this_ em _call_.
+
+```js
+const li = document.querySelectorAll('li')
+
+Array.prototype.filter.call(li, function(item) {
+  return item.classList.contains('ativo')
+})
+
+filtro // Retorna os itens que possuem ativo
+```
+
+
