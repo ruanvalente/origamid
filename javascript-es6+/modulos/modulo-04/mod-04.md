@@ -1686,4 +1686,115 @@ Array.prototype.filter.call(li, function(item) {
 filtro // Retorna os itens que possuem ativo
 ```
 
+## function.apply().
 
+O **applly(this, [arg1, arg2, ...])** funciona como o método call, a única diferença é que os argumentos da função são passados através de uma Array.
+
+```js
+const numeros = [1, 2, 3, 4, 5]
+Math.max.apply(null, numeros) // 5
+Math.max.call(null, 1, 2, 3, 4, 5) // 5
+
+// Podemos passar null para o valor de this, caso a função não utilize o objeto principal para funcional.
+```
+
+## Apply vs Call.
+
+A única diferença é a array como segundo argumento.
+
+```js
+const li = document.querySelectorAll('li')
+
+function itemPossuiAtivo(item) {
+  return item.classList.contains('ativo')
+}
+
+const filtro1 = Array.prototype.filter.call(li, itemPossuiAtivo)
+const filtro2 = Array.prototype.filter.apply(li, [itemPossuiAtivo])
+```
+
+## function.bind().
+
+Diferente de call e apply, **bind(this, arg, arg2, ...)** não irá executar a função mas sim retorna a mesma com o novo contexto de this.
+
+```js
+const li = document.querySelectorAll('li')
+
+const filtrarLi = Array.prototype.filter.bind(li, function(item) {
+  return item.classList.contains('ativo')
+})
+
+filtrarLi()
+```
+
+## Arguementos e Bind.
+
+Não precisa passar todos os argumentos no momento do bind, podemos passar os mesmos para a nova função no momento da execução da mesma.
+
+```js
+const carro = {
+  marca: 'Ford',
+  ano: 2018,
+  acelerar: function(aceleracao, tempo) {
+    return `${this.marca} acelerou ${aceleracao} em ${tempo}`
+  }
+}
+
+carro.acelerar(200, 20)
+// Ford acelerou 200 em 20
+
+const honda = {
+  marca: 'Honda'
+}
+
+const acelerarHonda = carro.acelerar.bind(honda)
+
+acelerarHonda(300, 10)
+// Honda acelerou 300 em 10
+```
+
+## Argumentos Comuns.
+
+Podemos passar argumentos padrões para uma função e retornar uma nova função.
+
+```js
+function imc(altura, peso) {
+  return peso / (altura * altura)
+}
+
+const imc180 = imc.bind(null, 1.8)
+
+imc(1.8, 70) // 21.6
+imc180(70) // 21.6
+```
+
+## Exercícios.
+
+```html
+<section>
+  <p>
+    Lobo-cinzento (nome científico:Canis lupus) é uma espécie de mamífero
+    canídeo do gênero Canis. É um sobrevivente da Era do Gelo, originário do
+    Pleistoceno Superior, cerca de 300 mil anos atrás. É o maior membro
+    remanescente selvagem da família canidae.
+  </p>
+  <p>
+    Os lobos-cinzentos são tipicamente predadores ápice nos ecossistemas que
+    ocupam. Embora não sejam tão adaptáveis à presença humana como geralmente
+    ocorre com as demais.
+  </p>
+  <p>
+    O peso e tamanho dos lobos variam muito em todo o mundo, tendendo a aumentar
+    proporcionalmente com a latitude.
+  </p>
+  <p>
+    Os lobos são capazes de percorrer longas distâncias com uma velocidade média
+    de 10 quilômetros por hora e são conhecidos por.
+  </p>
+</section>
+```
+
+```js
+// Retorne a soma total de caracteres dos
+// parágrafos acima utilizando reduce
+```
