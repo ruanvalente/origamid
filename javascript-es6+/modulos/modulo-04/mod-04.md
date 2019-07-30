@@ -1795,6 +1795,43 @@ imc180(70) // 21.6
 ```
 
 ```js
+'use strict'
+
 // Retorne a soma total de caracteres dos
 // parágrafos acima utilizando reduce
+
+const paragrafos = document.querySelectorAll('p')
+const totalDeCaracteres = Array.prototype.reduce.call(
+  paragrafos,
+  (acumulador, atual) => {
+    return acumulador + atual.innerText.length
+  },
+  0
+)
+console.log(totalDeCaracteres)
+// Crie uma função que retorne elementos html, com os seguintes parâmetros: tag, classe e conteúdo.
+function criarElementosHTML(tag, classe, conteudo) {
+  const elemento = document.createElement(tag)
+
+  function verificarConteudoEClasse(elemento, classe, conteudo) {
+    if (classe) {
+      elemento.classList.add(classe)
+    }
+
+    if (conteudo) {
+      elemento.innerHTML = conteudo
+    }
+
+    return null
+  }
+  verificarConteudoEClasse(elemento, classe, conteudo)
+
+  return elemento
+}
+// Crie uma nova função utilizando a anterior como base essa nova função deverá sempre criar h1 com a
+// classe titulo. Porém o parâmetro conteudo continuará dinâmico
+const h1Titulo = criarElementosHTML.bind(null, 'h1', 'titulo')
+const h1HTML = criarElementosHTML.bind(null, 'h1', 'titulo')
+console.log(h1Titulo('curso de Javascript'))
+console.log(h1HTML('Curso de HTML'))
 ```
