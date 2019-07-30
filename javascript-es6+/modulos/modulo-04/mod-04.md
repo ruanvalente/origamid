@@ -1686,6 +1686,7 @@ Array.prototype.filter.call(li, function(item) {
 filtro // Retorna os itens que possuem ativo
 ```
 
+<<<<<<< HEAD
 ## function.apply().
 
 O **applly(this, [arg1, arg2, ...])** funciona como o método call, a única diferença é que os argumentos da função são passados através de uma Array.
