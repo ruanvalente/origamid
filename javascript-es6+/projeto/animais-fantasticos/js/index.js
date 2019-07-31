@@ -1,15 +1,16 @@
 'use strict'
 
-function initTabMenu() {
-  const $tabMenu = document.querySelectorAll('.js-tabmenu li')
-  const $tabContent = document.querySelectorAll('.js-tabcontent section')
+function initTab() {
+  const $tabMenu = document.querySelectorAll('[data-js="tabmenu"] li')
+  const $tabContent = document.querySelectorAll('[data-js="content"] section')
 
   if ($tabContent.length && $tabMenu.length) {
     $tabContent[0].classList.add('ativo')
 
     function activeTab(index) {
-      $tabContent.forEach(content => content.classList.remove('ativo'))
-      $tabContent[index].classList.add('ativo')
+      $tabContent.forEach(element => element.classList.remove('ativo'))
+      const direction = $tabContent[index].dataset.anime
+      $tabContent[index].classList.add('ativo', direction)
     }
 
     $tabMenu.forEach((itemMenu, index) => {
@@ -21,14 +22,17 @@ function initTabMenu() {
 }
 
 function initAccordion() {
-  const $accordionList = document.querySelectorAll('.js-accordion-list dt')
-  if ($accordionList.length) {
-    $accordionList[0].classList.add('ativo')
-    $accordionList[0].nextElementSibling.classList.add('ativo')
+  const $accordionList = document.querySelectorAll(
+    '[data-js="accordion-list"] dt'
+  )
 
-    function accordionActive() {
-      this.classList.toggle('ativo')
-      this.nextElementSibling.classList.toggle('ativo')
+  if ($accordionList.length) {
+    $accordionList[0].nextElementSibling.classList.add('ativo')
+    $accordionList[0].classList.add('ativo')
+
+    function accordionActive(event) {
+      event.currentTarget.classList.toggle('ativo')
+      event.currentTarget.nextElementSibling.classList.toggle('ativo')
     }
 
     $accordionList.forEach(item =>
@@ -38,39 +42,39 @@ function initAccordion() {
 }
 
 function initScroll() {
-  const $internalLinks = document.querySelectorAll('a[href^="#"]')
+  const $links = document.querySelectorAll('[data-js="menu"] a[href^="#"]')
 
-  function scrollLinks(event) {
+  function activeScroll(event) {
     event.preventDefault()
     const href = this.getAttribute('href')
-    const $toSection = document.querySelector(href)
-    $toSection.scrollIntoView({
+    const toSection = document.querySelector(href)
+    toSection.scrollIntoView({
       inline: 'start',
       behavior: 'smooth'
     })
   }
-  $internalLinks.forEach(link => link.addEventListener('click', scrollLinks))
+  $links.forEach(link => link.addEventListener('click', activeScroll))
 }
 
-function initSectionScroll() {
-  const $scrollSection = document.querySelectorAll('.js-scroll')
+function initScrollSection() {
+  const $sections = document.querySelectorAll('[data-js="scroll"]')
 
-  if ($scrollSection.length) {
-    function activeScrollSection() {
-      $scrollSection.forEach(section => {
+  if ($sections.length) {
+    function activeSectionScroll() {
+      $sections.forEach(section => {
         const sectionTop = section.getBoundingClientRect().top
-        const halfOfTheWindow = sectionTop - window.innerHeight * 0.6
-        if (halfOfTheWindow < 0) {
+        const haltOfTheWindow = (sectionTop - window.innerHeight) * 0.6
+        if (haltOfTheWindow < 0) {
           section.classList.add('ativo')
         }
       })
     }
-    activeScrollSection()
-    window.addEventListener('scroll', activeScrollSection)
+    activeSectionScroll()
+    window.addEventListener('scroll', activeSectionScroll)
   }
 }
 
-initSectionScroll()
+initScrollSection()
 initScroll()
+initTab()
 initAccordion()
-initTabMenu()

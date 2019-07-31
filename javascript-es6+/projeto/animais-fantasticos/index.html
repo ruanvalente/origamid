@@ -15,7 +15,7 @@
     </script>
   </head>
   <body>
-    <nav class="menu">
+    <nav class="menu" data-js="menu">
       <ul>
         <li><a href="#animais">Animais</a></li>
         <li><a href="#faq">Faq</a></li>
@@ -28,9 +28,9 @@
       </ul>
     </nav>
 
-    <section class="grid-section animais js-scroll" id="animais">
+    <section class="grid-section animais" data-js="scroll" id="animais">
       <h1 class="titulo">Animais Fantásticos</h1>
-      <ul class="animais-lista js-tabmenu">
+      <ul class="animais-lista" data-js="tabmenu">
         <li><img src="img/imagem1.jpg" alt="Raposa" /></li>
         <li><img src="img/imagem2.jpg" alt="Esquilo" /></li>
         <li><img src="img/imagem3.jpg" alt="Urso" /></li>
@@ -38,8 +38,8 @@
         <li><img src="img/imagem5.jpg" alt="Macaco" /></li>
         <li><img src="img/imagem6.jpg" alt="Leão" /></li>
       </ul>
-      <div class="animais-descricao js-tabcontent">
-        <section>
+      <div class="animais-descricao" data-js="content">
+        <section data-anime="show-down" data-anime="show-right">
           <h2>Raposa</h2>
           <p>
             As raposas são animais mamíferos e onívoros pertencentes à família
@@ -61,7 +61,7 @@
           </p>
         </section>
 
-        <section>
+        <section data-anime="show-right">
           <h2>Esquilo</h2>
           <p>
             Os esquilos pertencem a uma grande família de mamíferos roedores de
@@ -77,7 +77,7 @@
             com que roem sementes com facilidade, principalmente bolotas.
           </p>
         </section>
-        <section>
+        <section data-anime="show-down">
           <h2>Urso</h2>
           <p>
             Os Ursos constituem uma família de mamíferos plantígrados, da ordem
@@ -100,7 +100,7 @@
             raposa vermelha é a mais comum.
           </p>
         </section>
-        <section>
+        <section data-anime="show-right">
           <h2>Lobo</h2>
           <p>
             Lobo-cinzento é uma espécie de mamífero canídeo do gênero Canis. É
@@ -128,7 +128,7 @@
             urbanas.
           </p>
         </section>
-        <section>
+        <section data-anime="show-down">
           <h2>Macaco</h2>
           <p>
             Macaco é um termo de origem africana utilizado como designação comum
@@ -154,7 +154,7 @@
             latim simius, de simus, "que tem o nariz chato".
           </p>
         </section>
-        <section>
+        <section data-anime="show-right">
           <h2>Leão</h2>
           <p>
             O leão [feminino: leoa] é uma espécie de mamífero carnívoro do
@@ -184,9 +184,9 @@
       </div>
     </section>
 
-    <section class="grid-section faq js-scroll" id="faq">
+    <section class="grid-section faq" data-js="scroll" id="faq">
       <h1 class="titulo">FAQ</h1>
-      <dl class="faq-lista js-accordion-list">
+      <dl class="faq-lista" data-js="accordion-list">
         <dt>Qual a idade dos animais?</dt>
         <dd>
           As raposas são animais mamíferos e onívoros pertencentes à família
@@ -218,10 +218,10 @@
         <img src="img/mapa.png" />
       </div>
       <ul class="dados">
-        <li>contato@origamid.com</li>
-        <li>+55 (21) 9999-9999</li>
-        <li>Rua do Conde, nº 21</li>
-        <li>Rio de Janeiro - RJ</li>
+        <li>contato@email.com</li>
+        <li>+55 (91) 9999-9999</li>
+        <li>Rua tal, nº 21</li>
+        <li>Belém - PA</li>
       </ul>
     </section>
 

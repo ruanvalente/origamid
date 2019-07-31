@@ -1,3 +1,7 @@
+html.texto-maior {
+  font-size: 150%;
+}
+
 body,
 h1,
 h2,
@@ -100,6 +104,9 @@ body {
   overflow-y: scroll;
   grid-column: 2;
 }
+.animais-lista li {
+  cursor: pointer;
+}
 
 .animais-lista::-webkit-scrollbar {
   width: 18px;
@@ -185,7 +192,7 @@ body {
   font-weight: bold;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 793px) {
   body {
     grid-template-columns: 1fr;
   }
@@ -218,16 +225,24 @@ body {
 }
 
 /* Tabmenu */
-.js .js-tabcontent section {
+
+.js [data-js='content'] section {
   display: none;
 }
 
-.js-tabcontent section.ativo {
+[data-js='content'] section.ativo {
   display: block;
-  animation: show-menu-tab 0.5s forwards;
 }
 
-@keyframes show-menu-tab {
+[data-js='content'] section.ativo.show-right {
+  animation: show-right 0.5s forwards;
+}
+
+[data-js='content'] section.ativo.show-down {
+  animation: show-down 0.5s forwards;
+}
+
+@keyframes show-right {
   from {
     opacity: 0;
     transform: translate3d(-30px, 0, 0);
@@ -238,24 +253,36 @@ body {
   }
 }
 
-/* Accordion List */
-
-.js .js-accordion-list dd {
-  display: none;
-  animation: slide-down 0.5s forwards;
+@keyframes show-down {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: rotate3d(0, 0, 0);
+  }
 }
 
-.js-accordion-list dt::after {
+/* Accordion list */
+
+.js [data-js='accordion-list'] dd {
+  display: none;
+
+  animation: slide-down 0.5s forwards;
+}
+[data-js='accordion-list'] dt::after {
   content: '⤵';
   margin-left: 10px;
+
   animation: slide-down 0.5s forwards;
 }
 
-.js-accordion-list dt.ativo::after {
+[data-js='accordion-list'] dt.ativo::after {
   content: '⤴';
 }
 
-.js-accordion-list dd.ativo {
+[data-js='accordion-list'] dd.ativo {
   display: block;
 }
 
@@ -273,14 +300,14 @@ body {
 
 /* Scroll Section */
 
-.js .js-scroll {
+.js [data-js='scroll'] {
   opacity: 0;
   transform: translate3d(-30px, 0, 0);
-  transition: 0.3s;
+  transition: 0.5s;
 }
 
-.js .js-scroll.ativo {
+.js [data-js='scroll'].ativo {
   opacity: 1;
   transform: translate3d(0, 0, 0);
-  transition: 0.3s;
+  transition: 0.5s;
 }
