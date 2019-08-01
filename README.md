@@ -16,7 +16,7 @@
 
   - Início do projeto, selecionar e manipular o dom, eventos, transversing e mais.
 
-- Objetos.
+- [x] Objetos.
 
   - Constructor functions, prototypes, Strings, Arrays, Math, Number, Function e Object.
 
