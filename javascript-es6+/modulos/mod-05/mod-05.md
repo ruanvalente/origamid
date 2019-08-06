@@ -219,3 +219,120 @@ const arguments = 3.14 // escrever em palavra reservada
 ```js
 // Divida o projeto em diferentes módulos
 ```
+
+# setTimeout e setInterval.
+
+**setTimeout(callback, tempo, arg1, arg2, ...)** método assíncrono que ativa o callback após um **tempo** determinado. Não existe garantia que o código será executado extamente após o tempo, pois o callback entra na fila de espera pela **Call Stack** estar vazia.
+
+```js
+function espera(texto) {
+  console.log(texto)
+}
+setTimeout(espera, 1000, 'Depois de 1s')
+```
+
+## Imediato
+
+Se não passarmos o argumento de tempo ele irá assumir o valor de 0 e entrará na _fila_ imediatamente para ser executado. Podemos passar uma função anônima diretamente com argumento.
+
+```js
+setTimeout(() => {
+  console.log('Após 0?s')
+})
+```
+
+## Exemplos de setTimeout.
+
+## Loops e setTimeout.
+
+Um loop é executado rapidamente, em milissegundos. Se colocarmos um setTimeout dentro do loop, todos eles serão adicionado à Web API praticamente ao mesmo tempo. Um evento de setTimeout não espera o tempo do anterior acabar para iniciar.
+
+```js
+for (let i = 0; i < 20; i++) {
+  setTimeout(() => {
+    console.log(i)
+  }, 300)
+}
+```
+
+## Corrigindo o Loop.
+
+Agora ele está multiplicando o tempo por i. Assim o primeiro aparecerá em 0ms, o segundo em 300ms o terceiro 600ms e assim por diante.
+
+```js
+for (let i = 0; i < 20; i++) {
+  setTimeout(() => {
+    console.log(i)
+  }, 300 * i)
+}
+```
+
+## This e Window.
+
+setTimeout é um método do objeto Window. O valor de **this** dentro do mesmo callback é uma referência ao seu objeto no caso Window.
+
+```js
+const btn = document.querySelector('button')
+btn.addEventListener('click', handleClick)
+function handleClick(event) {
+  setTimeout(function() {
+    this.classList.add('active')
+  }, 1000)
+}
+// Erro pois window.classList não existe
+```
+
+## Arrow Function.
+
+Quando utilizamos uma Arrow Function como callback, o contexto de _this_ passa a ser do local onde o setTimeout foi iniciado.
+
+```js
+const btn = document.querySelector('button')
+btn.addEventListener('click', handleClick)
+
+// this agora é btn.
+function handleClick(event) {
+  setTimeout(() => {
+    this.classList.add('active')
+  }, 1000)
+}
+```
+
+## setInterval.
+
+**setInterval(callback, tempo, arg1, arg2, ...)**, irá ativar o callback toda vez que a quantidade de tempo passar.
+
+```js
+function loop(texto) {
+  console.log(texto)
+}
+setInterval(loop, 1000, 'Passou 1s')
+// loop a cada segundo
+let i = 0
+setInterval(() => {
+  console.log(i++)
+}, 1000)
+```
+
+## clearInterval.
+
+**clearInterval(var)**, podemos para um intervalo com o clearInterval. Para isso precisamos atribuir o setInterval a uma variável.
+
+```js
+const contarAte10 = setInterval(callback, 1000)
+let i = 0
+function callback() {
+  console.log(i++)
+  if (i > 10) {
+    clearInterval(contarAte10)
+  }
+}
+```
+
+## Exercícios.
+
+```js
+// Mude a cor da tela para azul e depois para vermelho a cada 2s.
+// // Crie um cronometro utilizando o setInterval. Deve ser possível
+// iniciar, pausar e resetar (duplo clique no pausar).
+```
