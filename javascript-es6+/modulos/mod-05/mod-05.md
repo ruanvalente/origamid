@@ -331,7 +331,6 @@ function callback() {
 
 ## Exercícios.
 
-```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -348,6 +347,7 @@ function callback() {
         background: #f12d26;
       }
     </style>
+
   </head>
   <body>
     <button data-js="start">Inciar</button>
