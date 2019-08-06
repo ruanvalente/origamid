@@ -331,8 +331,66 @@ function callback() {
 
 ## Exercícios.
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Exercicios.</title>
+    <style>
+      body {
+        background: #0c3b77;
+      }
+
+      body.active {
+        background: #f12d26;
+      }
+    </style>
+  </head>
+  <body>
+    <button data-js="start">Inciar</button>
+    <button data-js="pause">Pausar</button>
+    <span data-js="value">0</span>
+    <script src="main.js"></script>
+  </body>
+</html>
+```
+
 ```js
+'use strict'
 // Mude a cor da tela para azul e depois para vermelho a cada 2s.
+const $body = document.querySelector('body')
+function changeColor() {
+  $body.classList.toggle('active')
+}
+
+setInterval(changeColor, 200)
+
 // // Crie um cronometro utilizando o setInterval. Deve ser possível
 // iniciar, pausar e resetar (duplo clique no pausar).
+
+const $startButton = document.querySelector('[data-js="start"]')
+const $pauseButton = document.querySelector('[data-js="pause"]')
+const $resetButton = document.querySelector('[data-js="reset"]')
+const $value = document.querySelector('[data-js="value"]')
+let timer
+function start() {
+  timer = setInterval(() => {
+    $value.innerText = +$value.innerText + 1
+  }, 200)
+}
+
+function pause() {
+  clearInterval(timer)
+}
+
+function reset() {
+  $value.innerText = 0
+}
+
+$startButton.addEventListener('click', start)
+$pauseButton.addEventListener('click', pause)
+$pauseButton.addEventListener('dblclick', reset)
 ```
