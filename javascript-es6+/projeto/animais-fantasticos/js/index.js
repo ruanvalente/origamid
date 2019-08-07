@@ -5,6 +5,7 @@ import initAccordion from './modules/initAccordion.js'
 import initModal from './modules/initModal.js'
 import initTooltip from './modules/initTooltip.js'
 import initDropdownMenu from './modules/initDropdownMenu.js'
+import initMenuMobile from './modules/initMenuMobile.js'
 
 initScrollSection()
 initScroll()
@@ -13,3 +14,4 @@ initAccordion()
 initModal()
 initTooltip()
 initDropdownMenu()
+initMenuMobile()
