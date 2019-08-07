@@ -17,7 +17,14 @@
   <body>
     <div class="grid-container">
       <nav class="menu" data-js="menu">
-        <ul>
+        <button
+          data-js="button-menu"
+          aria-expanded="false"
+          aria-controls="menu"
+        >
+          Menu
+        </button>
+        <ul data-js="list-menu" id="menu-list">
           <li><a href="#animais">Animais</a></li>
 
           <li data-js="dropdown">
@@ -29,7 +36,6 @@
               <li><a href="#investidores">Investidores</a></li>
             </ul>
           </li>
-
           <li><a href="#faq">Faq</a></li>
           <li><a href="#contato">Contato</a></li>
           <li>
