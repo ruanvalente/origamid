@@ -444,3 +444,140 @@ const diasAgora = converterEmDias(agora)
 const diasPromocao = converterEmDias(promocao)
 const faltam = diasPromocao - diasAgora
 ```
+
+# Forms.
+
+É comum utilizar inputs de formulários para criamos uma interface entre funções de Javascript e o usuário final do site. Para isso precisamos aprender como pegar os valores dos formulários.
+
+```html
+<form name="contato" id="contato">
+  <label for="nome">Nome</label>
+  <input type="text" name="nome" id="nome" />
+  <label for="email">Email</label>
+  <input type="email" name="email" id="email" />
+  <label for="mensagem">Mensagem</label>
+  <textarea name="mensagem" id="mensagem"></textarea>
+</form>
+```
+
+```js
+document.forms // lista com os formulários
+document.forms.contato // form com nome contato
+document.forms.contato.elements // elementos
+document.forms[0].elements[0].value // valor do primeiro
+```
+
+## Values.
+
+A propriedade _value_ retorna o valor do elemento no formulário. Se adicionarmos um callback ao _keyup_ (tecla levantar), podemos ficar de olho no evento e puxar o valor sempre que ele mudar. _Change_, é disparado quando houver mudanças.
+
+```js
+const form = document.getElementById('contato')
+function handleKeyUp(event) {
+  console.log(event.target.value)
+}
+form.addEventListener('keyup', handleKeyUp)
+```
+
+## Validação.
+
+O método _checkValidity_ verifica se um input com o atributo required, é válido ou não. A propriedade _validationMessage_ possui a messagem padrão de erro do browser. É possível modificar com _setCustomValidity('')_
+
+```html
+<input type="email" name="email" id="contato" required />
+<span class="erro"></span>
+```
+
+```js
+const form = document.getElementById('contato')
+function handleChange(event) {
+  const target = event.target
+  if (!target.checkValidity()) {
+    target.classList.add('invalido')
+    target.nextElementSibling.innerText = target.validationMessage
+  } else {
+    target.classList.remove('invalido')
+  }
+}
+form.addEventListener('change', handleChange)
+```
+
+## Select.
+
+```html
+<select name="cores" id="cores">
+  <option value="black">Preto</option>
+  <option value="white">Branco</option>
+  <option value="blue">Azul</option>
+</select>
+<input type="color" />
+```
+
+```js
+const form = document.getElementById('contato')
+function handleChange(event) {
+  document.body.style.backgroundColor = event.target.value
+}
+form.addEventListener('change', handleChange)
+```
+
+## Diferentes Inputs.
+
+```html
+<input type="color" />
+<input type="date" />
+<input type="number" />
+<input type="range" />
+<input type="password" />
+```
+
+```js
+const form = document.getElementById('contato')
+function handleChange(event) {
+  console.log(event.target.value)
+}
+form.addEventListener('change', handleChange)
+```
+
+## Checkbox.
+
+Retorna o valor de value, se estiver checada ou não. _checked_ retorna true ou false.
+
+```js
+<label for="identidade">Possui identidade?</label>
+<input type="checkbox" value="identidade" id="identidade">
+<label for="casado">Casado?</label>
+<input type="checkbox" value="casado" id="casado">
+```
+
+```js
+const form = document.getElementById('contato')
+function handleChange(event) {
+  if (event.target.checked) console.log(event.target.value)
+}
+form.addEventListener('change', handleChange)
+```
+
+## Pegando todos os valores.
+
+Ao invés de selecionarmos elementos por elemento, podemos utilizar um objeto para colocarmos todos os dados que o usuário colocar no formulário.
+
+```html
+<form name="contato" id="contato">
+  <label for="nome">Nome</label>
+  <input type="text" name="nome" id="nome" />
+  <label for="email">Email</label>
+  <input type="email" name="email" id="email" />
+  <label for="mensagem">Mensagem</label>
+  <textarea name="mensagem" id="mensagem"></textarea>
+</form>
+```
+
+```js
+const form = document.getElementById('contato')
+const dados = {}
+function handleChange(event) {
+  dados[event.target.name] = event.target.value
+}
+form.addEventListener('change', handleChange)
+```
