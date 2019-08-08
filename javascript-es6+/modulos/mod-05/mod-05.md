@@ -394,3 +394,53 @@ $startButton.addEventListener('click', start)
 $pauseButton.addEventListener('click', pause)
 $pauseButton.addEventListener('dblclick', reset)
 ```
+
+# Data Object.
+
+## new Date().
+
+O Construtor _Date_ cria um objeto contendo valores com o mês, dia, ano e horário e mais. A data é
+baseada no relógio interno do computador.
+
+```js
+const agora = new Date()
+
+agora
+
+// Semana Mês Dia Ano HH:MM:SS GMT
+
+agora.getDate() // Dia
+agora.getDay() // Dia da Semana ex: 5 = Fri
+agora.getMonth() // Número dia mês
+agora.getFullYear() // Ano
+agora.getHours() // Hora
+agora.getMinutes() // Minutos
+agora.getTime() // ms desde 1970
+agora.getUTCHours() - 3 // Brasília
+```
+
+## getTime().
+
+O método getTime() mostra o tempo total em milessegundos desde o dia 1 de janeiro de 1970.
+
+```js
+const agora = new Date()
+agora.getTime() //
+// total de dias desde 1 de janeiro de 1970
+const diasPassados = agora.getTime() / (24 * 60 * 60 * 1000)
+```
+
+## Dias até.
+
+Podemos criar um objeto com uma data futuro, passando uma String com o valor da data.
+
+```js
+const agora = new Date()
+const promocao = new Date('December 24 2018 23:59')
+function converterEmDias(time) {
+  return time / (24 * 60 * 60 * 1000)
+}
+const diasAgora = converterEmDias(agora)
+const diasPromocao = converterEmDias(promocao)
+const faltam = diasPromocao - diasAgora
+```
