@@ -309,3 +309,23 @@ body {
   transform: translate3d(0, 0, 0);
   transition: 0.5s;
 }
+
+[data-weeks]::after {
+  display: inline-block;
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: red;
+  border-radius: 50%;
+  border: 2px solid #222;
+}
+
+[data-weeks].aberto::after {
+  display: inline-block;
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #71ff4e;
+  border-radius: 50%;
+  border: 2px solid #222;
+}
