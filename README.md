@@ -20,7 +20,7 @@
 
   - Constructor functions, prototypes, Strings, Arrays, Math, Number, Function e Object.
 
-- Efeitos no DOM.
+- [x] Efeitos no DOM. :heavy_check_mark:
 
   - Modules, event bubble, setTimeout, forms e mais.
 
