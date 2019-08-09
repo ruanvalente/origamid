@@ -484,7 +484,7 @@ form.addEventListener('keyup', handleKeyUp)
 O método _checkValidity_ verifica se um input com o atributo required, é válido ou não. A propriedade _validationMessage_ possui a messagem padrão de erro do browser. É possível modificar com _setCustomValidity('')_
 
 ```html
-<input type="email" name="email" id="contato" required />
+<input type="email" name="email" id="email" required />
 <span class="erro"></span>
 ```
 
