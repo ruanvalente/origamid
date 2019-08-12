@@ -251,3 +251,178 @@ carregouPrimeiro.then(resposta => {
   console.log(resposta) // Login Efetuado
 })
 ```
+
+# Fetch.
+
+## Fetch API.
+
+Permite fazemos requisições HTTP atráves do método **fetch()**. Este método retorna a resolução de uma Promise. Podemos então utilizar o then para interagirmos com a resposta, que é um obejto do tipo _Response_.
+
+```js
+fetch('./arquivo.txt').then(function(response) {
+  console.log(response) // Response HTTP (Objeto)
+})
+```
+
+## Response.
+
+O objeto Response, possui um corpo com contéudo da resposta. Esse corpo pode ser transformado utilizando métodos do protótipo do objeto Response. Estes retornam outras promises.
+
+```js
+fetch('./arquivo.text')
+  .then(function(response) {
+    return response.text()
+  })
+  .then(function(body) {
+    console.log(body)
+  })
+```
+
+## Servidor Local.
+
+O fetch faz uma requisição HTTP/HTTPS. Se você iniciar um site local diretamente pelo index.html, sem um servidor local, o fetch não irá funcionar.
+
+```js
+fetch('c:/files/arquivo.txt')
+  .then(response => {
+    return response.text()
+  })
+  .then(corpo => {
+    console.log(corpo)
+  }) // erro
+```
+
+> Se dermos um espaço após o objeto ou pularmos linha, o método continua funcionando.
+
+## .json().
+
+Um tipo de formato de dados muito utilizado com Javascript é o **JSON** _(Javascript Object Notation)_, pelo fato dele possuir basicamente a mesma sintaxe que a de um Objeto Javascript. **.json()** transforma um corpo em json em um objeto Javascript.
+
+```js
+fetch('https://viacep.com.br/ws/01001000/json/')
+  .then(response => response.json())
+  .then(response => console.log(response))
+```
+
+## .text().
+
+Podemos utilizar o **.text()** para diferentes formatos como text, json, html, css, js e mais.
+
+```js
+const styleElement = document.createElement('style')
+
+fetch('./style.css')
+  .then(response => response.text())
+  .then(style => {
+    styleElement.innerHTML = style
+    document.body.appendChild(style)
+  })
+```
+
+## HTML e .text().
+
+Podemos pegar um arquivo inteiro em HTML, transformar o corpo em texto e inserir em uma div com innerHTML. A partir dai podemos manipular esses dados como um DOM qualquer.
+
+```js
+const div = document.createElement('div')
+
+fetch('./sobre.html')
+  .then(response => response.text())
+  .then(htmlBody => {
+    div.innerHTML = htmlBody
+    const titulo = div.querySelector('h1')
+    document.querySelector('h1').innerText = titulo.innerText
+  })
+```
+
+## .blob().
+
+Um blob é um tipo de objeto utilizado para representação de dados de um arquivo. O blob pode ser utilizado para transformarmos requisições de imagens por exemplo. O blob gera um URL único.
+
+```js
+const div = document.createElement('div')
+
+fetch('./imagem.png')
+  .then(response => response.blob())
+  .then(imgBlob => {
+    const blobURL = URL.createObjectURL(imgBlob)
+    console.log(blobURL)
+  })
+```
+
+## .clone().
+
+Ao utilizar os métodos acima, text, json e blob, a resposta é modificada. Por isso existe o método clone, caso você necessite transformar uma resposta em diferentes valores.
+
+```js
+const div = document.createElement('div')
+
+fetch('https://viacep.com.br/ws/01001000/json/').then(response => {
+  const cloneResponse = response.clone()
+  response.json().then(json => {
+    console.log(json)
+  })
+  cloneResponse.text().then(text => {
+    console.log(text)
+  })
+})
+```
+
+## .headers
+
+É uma propriedade que possui os cabeçalhos da requisição. É um tipo de dado iterável então podemos utilizar o forEach para vermos cada um deles.
+
+```js
+const div = document.createElement('div')
+
+fetch('https://viacep.com.br/ws/01001000/json/').then(response => {
+  response.headers.forEach(console.log)
+})
+```
+
+## .status e .ok
+
+Retorna o status da requisição. Se foi 404, 200, 202 e mais. Ok, retorna um valor booleano sendo true para uma requisição de sucesso e false para uma sem sucesso.
+
+```js
+const div = document.createElement('div')
+
+fetch('https://viacep.com.br/ws/01001000/json/').then(response => {
+  console.log(response.status, response.ok)
+  if (response.status === 404) {
+    console.log('Página não encontrada')
+  }
+})
+```
+
+## .url e .type.
+
+**.url** retorna a url da requisição **.type** retorna o tipo da resposta.
+
+```js
+const div = document.createElement('div')
+fetch('https://viacep.com.br/ws/01001000/json/').then(response => {
+  console.log(response.type, response.url)
+})
+//types
+// basic: feito na mesma origem
+// cors: feito em url body pode estar disponível
+// error: erro de conexão
+// opaque: no-cors, não permite acesso de outros sites
+```
+
+## Exercícios.
+
+```js
+// Utilizando a API https://viacep.com.br/ws/${CEP}/json/
+// crie um formulário onde o usuário pode digitar o cep
+// e o endereço completo é retornado ao clicar em buscar
+
+// Utilizando a API https://blockchain.info/ticker
+// retorne no DOM o valor de compra da bitcoin and reais.
+// atualize este valor a cada 30s
+
+// Utilizando a API https://api.chucknorris.io/jokes/random
+// retorne uma piada randomica do chucknorris, toda vez que
+// clicar em próxima
+```
