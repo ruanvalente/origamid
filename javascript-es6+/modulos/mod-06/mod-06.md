@@ -779,3 +779,101 @@ fetch(url)
     console.log(data)
   })
 ```
+
+# Async e Await.
+
+## async/await.
+
+A palavra chave **async** indica que a função possui partes assíncronas e que você pretende esperar a resolução da mesma antes de continuar. O **await** irá indicar a promise que devemos esperar. Faz parte do ES8.
+
+```js
+async function puxarDados() {
+  const dadosResponse = await fetch('./dados.json')
+  const dadosJSON = await dadosResponse.json()
+
+  document.body.innerText = dadosJSON.titulo
+}
+puxarDados()
+```
+
+## then / async.
+
+A diferença é uma sintaxe mais limpa.
+
+```js
+function iniciarFetch() {
+  fetch('./dados.json')
+    .then(dadosResponse => dadosResponse.json())
+    .then(dadosJSON => {
+      document.body.innerText = dadosJSON.titulo
+    })
+}
+iniciarFetch()
+```
+
+```js
+async function iniciarAsync() {
+  const dadosResponse = await fetch('./dados.json')
+  const dadosJSON = await dadosResponse.json()
+  document.body.innerText = dadosJSON.titulo
+}
+iniciarAsync()
+```
+
+## Try / Catch.
+
+Para lidarmos com erros nas promises, podemos utilizar o **try** e o **catch** na função.
+
+```js
+async function puxarDados() {
+  try {
+    const dadosResponse = await fetch('./dados.json')
+    const dadosJSON = await dadosResponse.json()
+    document.innerText = dadosJSON.titulo
+  } catch (erro) {
+    console.log(erro)
+  }
+}
+puxarDados()
+```
+
+## Iniciar Fetch ao Mesmo Tempo.
+
+Não precisamos esperar um fetch para começar o outro. Porém precisamos esperar a resposta devolvida do fetch para transformar a response em _json_.
+
+```js
+async function iniciarAsync() {
+  const dadosResponse = fetch('./dados.json')
+  const clientesResponse = fetch('./clientes.json')
+
+  // ele espera o que está dentro da expressão () ocorrer primeiro
+
+  const dadosJSON = await (await dadosResponse).json()
+  const clientesJSON = await (await clientesResponse).json()
+}
+
+iniciarAsync()
+```
+
+## Promise.
+
+O resultado da expressão à frente do await tem que ser uma promise. E o retorno do await será sempre o resultado desta promise.
+
+```js
+async function asyncSemPromise() {
+  // console.log() não irá aparecer...
+
+  await setTimeout(() => console.log('Depois de 1s'), 1000)
+  console.log('Acabou')
+}
+
+asyncSemPromise()
+
+async function iniciarAsync() {
+  await new Promise(resolve => {
+    setTimeout(() => resolve(), 1000)
+  })
+  console.log('Depois de 1s')
+}
+iniciarAsync()
+```
