@@ -505,3 +505,89 @@ function nextJokeData() {
 setTimeout(nextJokeData, 2000)
 $nextJoke.addEventListener('click', nextJokeData)
 ```
+
+# JSON.
+
+Javascript Object Notation (JSON) é um formato de organização de dados, compostos por um conjunto de chave e valor. As aspas duplas são obrigatórias. Tanto na chave quanto no valor quando este for uma String.
+
+```json
+{
+  "id": 1,
+  "nome": "Ruan Valente",
+  "email": "email@email.com"
+}
+```
+
+## Valores.
+
+Os valores podem ser Numbers, Strings, Boolean, Arrays, Objects e null.
+
+```json
+{
+  "id": 1,
+  "faculdade": false,
+  "pertences": ["lapis", "caderno", "caneta"],
+  "endereco": {
+    "cidade": "São Paulo",
+    "pais": "Brasil"
+  },
+  "casado": null
+}
+```
+
+## Arrays e Objetos.
+
+É comum possuirmos Array's com objetos em cada valor da Array. Cuidado para não colocar vírgula no último item do objeto ou Array.
+
+```json
+[
+  {
+    "id": 1,
+    "aula": "JavaScript",
+    "tempo": "25min"
+  },
+  {
+    "id": 2,
+    "aula": "HTML",
+    "tempo": "15min"
+  },
+  {
+    "id": 3,
+    "aula": "CSS",
+    "tempo": "10min"
+  }
+]
+```
+
+## JSON.parse(object) e JSON.stringify(str).
+
+**JSON.parse()** irá transformar um texto JSON em um objeto Javascript. **JSON.stringify()** irá transformar um objeto Javascript em uma string no formato **JSON**.
+
+```js
+const textoJSON = '{"id": 1, "titulo": "JavaScript", "tempo": "25min"}'
+const textoOBJ = JSON.parse(textoJSON)
+const enderecoOBJ = {
+  cidade: 'São Paulo',
+  rua: 'Ali Perto',
+  pais: 'Brasil',
+  numero: 50
+}
+const enderecoJSON = JSON.stringfy(enderecoOBJ)
+```
+
+## Exemplo Real.
+
+Podemos guardar por exemplo no localStorage, uma string como valor de uma propriedade. E retornar essa string como um objeto.
+
+```js
+const configuracoes = {
+  player: 'Google API',
+  tempo: 25.5,
+  aula: '2-1 JavaScript',
+  vitalicio: true
+}
+
+localStorage.configuracoes = JSON.stringify(configuracoes)
+
+const pegarConfiguracoes = JSON.parse(localStorage.configuracoes)
+```
