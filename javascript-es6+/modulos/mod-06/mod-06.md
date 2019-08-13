@@ -591,3 +591,191 @@ localStorage.configuracoes = JSON.stringify(configuracoes)
 
 const pegarConfiguracoes = JSON.parse(localStorage.configuracoes)
 ```
+
+# API e HTTP.
+
+## API.
+
+- Application
+
+  - Um servidor, aplicativo, objeto Javascript ou qualquer outra coisa que você interaja através de comandos. Ao digitar uma URL, estamos utilizando a API do browser para se comunicar com a API do servidor.
+
+- Programming
+
+  - Programação, isso significa que um comando irá encadear uma cadeia de eventos pré-definidos. O resultado esperado é geralmente o mesmo.
+
+- Interface
+
+  - A interface são os comandos criados para permitir a interação com a aplicação: _'VIOLÃO'.toUpperCase()_ é um método que faz parte da interface do objeto String. A interação com a interface retorna um efeito / resposta.
+
+## Exemplos de API'S.
+
+- Github.
+
+  - https://api.github.com/users/ruanvalente
+  - https://api.github.com/users/ruanvalente/followers
+
+- Array / Element.
+
+  - [].map()
+  - [].filter()
+  - Element.classList
+  - Element.attributes
+
+- Tempo.
+  - https://www.metaweather.com/api/location/455825/
+  - https://github.com/toddmotto/public-apis
+
+## HTTP.
+
+Hypertext Transfer Protocol é o protocolo utilizado para enviarmos/recebemos arquivos e dados na Web.
+
+```js
+fetch('https://pokeapi.co/api/v2/pokemon/')
+  .then(response => response.json())
+  .then(pokemon => console.log(pokemon))
+```
+
+## URL e Method.
+
+Uma requisição HTTP é feita através de uma URL. O método padrão é o _GET_, mas existem outros como _POST_, _UPDATE_, _DELETE_, _HEADER_ e mais.
+
+```js
+const url = 'https://jsonplaceholder.typicode.com/posts/'
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json; charset=utf8'
+  },
+  body: '"aula": "Javascript"'
+}
+
+fetch(url, options)
+  .then(response => response.json())
+  .then(json => {
+    console.log(json)
+  })
+```
+
+## Method.
+
+- GET
+
+  - O método GET requisita uma representação do recurso especificado. Requisições usando GET devem apenas recuperar dados e não devem ter qualquer outro efeito.
+
+- POST
+
+  - Envia dados para serem processados (por exemplo, dados de um formulário HTML) para o recurso especificado. Os dados são incluídos no corpo do comando. Sua utilização em uma requisição ocorre quando é necessário enviar dados ao servidor para serem processados, geralmente por um programa script identificado no Request-URI. Uma requisição por meio desse método sempre requer que as informações submetidas sejam incluídas no corpo da mensagem e formatadas como uma query string, além de conter cabeçalhos adicionais especificando seu tamanho (Content-Length) e seu formato (Content-Type). Por isso, esse método oferece uma maior segurança em relação aos dados transferidos, ao contrário do método GET que os dados são anexados a URL, ficando visíveis ao usuário.
+
+- PUT
+
+  - O método PUT envia os dados de forma semelhante ao POST, através do corpo do HTTP a diferença entre os 2 métodos é semântica. Por exemplo:
+
+  - Caso você necessite atualizar os dados de um usuário, utilizando o método PUT você pode os atualizar diversas vezes, pois o PUT vai sobrescrever os dados com isso ficará somente com um único registro atualizado.
+
+  - Se você executasse este mesmo procedimento utilizando o método POST, você criaria diversos registros para cada requisição realizada.
+
+- DELETE
+
+  - Exclui o recurso.
+
+- HEADER
+
+  - Variação do GET em que o recurso não é retornado. É usado para obter metainformações por meio do cabeçalho da resposta, sem ter que recuperar todo o conteúdo.
+
+## GET.
+
+GET irá puxar as informações da URL. Não é necessário informar que o método é GET, pois este é o padrão.
+
+```js
+const url = 'https://jsonplaceholder.typicode.com/posts/'
+
+fetch(url, {
+  method: 'GET'
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+```
+
+## POST.
+
+POST irá criar uma nova postagem, utilizando o tipo de conteúdo especifico no headers e utilizando o conteúdo do body.
+
+```js
+let url = 'https://jsonplaceholder.typicode.com/posts/'
+let options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
+  body: '{"titulo": "Javascript ES6+"}'
+}
+fetch(url, options)
+  .then(response => response.json())
+  .then(data => console.log(data))
+```
+
+## PUT.
+
+PUT irá atualizar o conteúdo da URL com o que for informado no conteúdo do body.
+
+```js
+const url = 'https://jsonplaceholder.typicode.com/posts/1/'
+
+fetch(url, {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
+  body: '{"titulo": "Javascript ES6+"}'
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+```
+
+## HEAD.
+
+HEAD puxa apenas os headers. É uma requisição mais leve pois não puxa o body.
+
+```js
+const url = 'https://jsonplaceholder.typicode.com/posts/1/'
+
+fetch(url, {
+  method: 'HEAD'
+}).then(response => {
+  response.headers.forEach(console.log)
+  console.log(response.headers.get('Content-Type'))
+})
+```
+
+## Headers.
+
+- Cache-Control.
+
+  - Tempo que o arquivo deve ficar cache em segundos. Ex: public, max-age=3600
+
+- Content-Type.
+
+  - Tipo de conteúdo. Ex: text/html; charset=utf-8. Indica o tipo de arquivo principalmente em métodos POST e PUT.
+
+- Lista de Headers.
+
+  - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+
+## CORS.
+
+Cross-Origin Resource Sharing, gerencia como deve ser o compartilhamento de recursos entre diferente origens. É definido no servidor se é permitido ou não o acesso dos recursos através de scripts por outros sites. Utilizando o Access-Control-Allow-Origin.
+
+Se o servidor não permitir o acesso, este será bloqueado. É possível passar por cima do bloqueio utilizando um proxy. CORS é um acordo entre browser / servidor ou servidor / servidor. Ele serve para dar certa proteção ao browser, mas não é inviolável.
+
+```js
+const url = 'https://cors-anywhere.herokuapp.com/https://www.google.com/'
+const div = document.createElement('div')
+
+fetch(url)
+  .then(response => response.text())
+  .then(data => {
+    div.innerText = data
+    console.log(data)
+  })
+```
