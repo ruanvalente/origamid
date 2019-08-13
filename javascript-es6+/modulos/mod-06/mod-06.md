@@ -413,16 +413,95 @@ fetch('https://viacep.com.br/ws/01001000/json/').then(response => {
 
 ## Exercícios.
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Fetch</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="cep">
+      <form>
+        <label for="cep">CEP</label>
+        <input type="text" name="cep" id="cep" data-js="inputCEP" />
+        <input type="button" value="Buscar CEP" data-js="buttonCEP" />
+      </form>
+    </div>
+    <div class="resultado" data-js="resultCEP"></div>
+
+    <div class="blockchain">
+      <p class="btc">Preço BTC: <span data-js="resultBTC"></span></p>
+    </div>
+
+    <div class="piada">
+      <p data-js="chucknorrisJokes">Carregando Piadas....</p>
+      <button class="btn" data-js="nextJoke">Próxima</button>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
+```
+
 ```js
+'use strict'
+
 // Utilizando a API https://viacep.com.br/ws/${CEP}/json/
 // crie um formulário onde o usuário pode digitar o cep
 // e o endereço completo é retornado ao clicar em buscar
+const $inputCEP = document.querySelector('[data-js="inputCEP"]')
+const $buttonCEP = document.querySelector('[data-js="buttonCEP"]')
+const $resultCEP = document.querySelector('[data-js="resultCEP"]')
+
+function hanldeClick(e) {
+  const cep = $inputCEP.value
+  getCEP(cep)
+  $inputCEP.value = ''
+}
+
+function getCEP(cep) {
+  fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then(response => response.text())
+    .then(response => {
+      $resultCEP.innerText = response
+    })
+}
+
+$buttonCEP.addEventListener('click', hanldeClick)
 
 // Utilizando a API https://blockchain.info/ticker
 // retorne no DOM o valor de compra da bitcoin and reais.
 // atualize este valor a cada 30s
+const $resultBTC = document.querySelector('[data-js="resultBTC"]')
+
+function getBTC() {
+  fetch('https://blockchain.info/ticker')
+    .then(response => response.json())
+    .then(
+      response =>
+        ($resultBTC.innerText = ('R$ ' + response.BRL.buy).replace('.', ','))
+    )
+}
+
+// setInterval(getBTC, 500)
 
 // Utilizando a API https://api.chucknorris.io/jokes/random
-// retorne uma piada randomica do chucknorris, toda vez que
-// clicar em próxima
+// retorne uma piada randomica do chucknorris, toda vez que clicar em próxima
+
+const $chucknorrisJokes = document.querySelector('[data-js="chucknorrisJokes"]')
+const $nextJoke = document.querySelector('[data-js="nextJoke"]')
+
+function nextJokeData() {
+  fetch('https://api.chucknorris.io/jokes/random')
+    .then(response => response.json())
+    .then(response => {
+      $chucknorrisJokes.innerText = response.value
+    })
+}
+
+setTimeout(nextJokeData, 2000)
+$nextJoke.addEventListener('click', nextJokeData)
 ```
