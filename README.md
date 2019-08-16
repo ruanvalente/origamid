@@ -24,11 +24,11 @@
 
   - Modules, event bubble, setTimeout, forms e mais.
 
-- Javascript Assíncrono.
+- [x] Javascript Assíncrono. :heavy_check_mark:
 
   - Promises, Fetch (novo AJAX), JSON, API, HTTP, Async / Await e mais.
 
-- Classes.
+- [x] Classes. :heavy_check_mark:
 
   - Class, constructor, get, set, extends e mais.
 
