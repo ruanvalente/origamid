@@ -382,3 +382,100 @@ class Moto extends Veiculo {
 }
 const honda = new Moto(4, 'Gasolina', true)
 ```
+
+## Exercícios.
+
+```js
+// Criar um Countdowm que veja quantos dias faltam até o natal.
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Countdown</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Countdown</h1>
+    </div>
+    <span class="countdown" data-js="countdown-element"></span>
+    <script type="module" src="main.js"></script>
+    <script type="module" src="countdown.js"></script>
+  </body>
+</html>
+```
+
+```js
+// main.js
+
+import Countdown from './countdown.js'
+
+const date = new Countdown('24 December 2019 24:59:00 GMT-0300')
+const $countdownElement = document.querySelector(
+  '[data-js="countdown-element"]'
+)
+
+setInterval(() => {
+  $countdownElement.innerText = `Faltam: ${date.day} dias ${date.hours} horas ${
+    date.minutes
+  } minutos e ${date.seconds} segundos para o natal.
+`
+})
+```
+
+```js
+// countdown.js
+
+export default class Countdown {
+  constructor(futureDate) {
+    this.futureDate = futureDate
+  }
+
+  get _actualDate() {
+    return new Date()
+  }
+
+  get _futureDate() {
+    return new Date(this.futureDate)
+  }
+
+  get _timeStampDiff() {
+    return this._futureDate.getTime() - this._actualDate.getTime()
+  }
+
+  get day() {
+    return Math.floor(this._timeStampDiff / (24 * 60 * 60 * 1000))
+  }
+
+  get hours() {
+    return Math.floor(this._timeStampDiff / (60 * 60 * 1000))
+  }
+
+  get minutes() {
+    return Math.floor(this._timeStampDiff / (60 * 1000))
+  }
+
+  get seconds() {
+    return Math.floor(this._timeStampDiff / 1000)
+  }
+
+  get _total() {
+    const days = this.day
+    const hours = this.hours % 24
+    const minutes = this.minutes % 60
+    const seconds = this.seconds % 60
+
+    return {
+      days,
+      hours,
+      minutes,
+      seconds
+    }
+  }
+}
+```
