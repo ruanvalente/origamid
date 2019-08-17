@@ -96,3 +96,22 @@ const instrumento = 'Guitarra'
 })()
 console.log(instrumento) // 'Guitarra'
 ```
+
+## Exercícios.
+
+```js
+// Remova o erro
+const priceNumber = n => +n.replace('R$', '').replace(',', '.')
+priceNumber('R$ 99,99')
+
+// Crie uma IIFE e isole o escopo de qualquer código JS.
+;(() => {
+  const course = 'Curso Javascript ES6+'
+  console.log(course)
+})()
+// console.log(course)
+
+// Como podemos utilizar a função abaixo.
+const active = callback => callback()
+active(() => console.log('Active'))
+```
