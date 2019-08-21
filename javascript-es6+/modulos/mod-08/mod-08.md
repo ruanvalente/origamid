@@ -115,3 +115,5 @@ priceNumber('R$ 99,99')
 const active = callback => callback()
 active(() => console.log('Active'))
 ```
+
+# Factory Function.
