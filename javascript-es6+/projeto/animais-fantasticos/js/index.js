@@ -7,6 +7,7 @@ import initTooltip from './modules/initTooltip.js'
 import initDropdownMenu from './modules/initDropdownMenu.js'
 import initMenuMobile from './modules/initMenuMobile.js'
 import initFetchAnimals from './modules/initFetchAnimals.js'
+import initFetchBitcoins from './modules/initFetchBitcoins.js'
 
 initScrollSection()
 initScroll()
@@ -17,3 +18,4 @@ initTooltip()
 initDropdownMenu()
 initMenuMobile()
 initFetchAnimals()
+initFetchBitcoins()
