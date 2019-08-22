@@ -369,3 +369,5 @@ function $$(selectedElements) {
   return { hide, show, on, addClass, removeClass }
 }
 ```
+
+> [Para saber mais sobre Closure](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Closures)
