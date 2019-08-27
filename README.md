@@ -34,7 +34,7 @@
 
 - Mais JavaScript.
 
-  - IIFE, factory function, clojures, debugging, destructuring, rest, iterables.
+  - [x] IIFE, factory function, clojures, debugging, destructuring, rest, iterables. :heavy_check_mark:
 
 - Regular Expression
 
