@@ -710,3 +710,112 @@ const comidas = ['Pizza', 'Batata']
 comidas.push(...frutas)
 console.log(comidas)
 ```
+
+# Loops e Iterable.
+
+# Iterable.
+
+São objetos que possuem o método **[Symbol.iterator]**, geralmente no protótipo, é dentro dele que a função que lida com a iteração será definida. Ex: Array, String, NodeList, boa parte das Array-Like e outros.
+
+```js
+const frutas = ['Banana', 'Morango', 'Uva']
+const frase = 'Isso é JavaScript'
+
+fetch('https://pokeapi.co/api/v2/pokemon/').then(({ headers }) =>
+  console.log(headers)
+)
+```
+
+## For...of.
+
+É possível fazemos um loop por cada iteração do objeto iterável utilizando o for...of. Além deste loop podemos também utilizar o Spread Operator nos mesmos.
+
+```js
+const frutas = ['Banana', 'Morango', 'Uva']
+const frase = 'Isso é JavaScript'
+
+for (const fruta of frutas) {
+  console.log(fruta)
+}
+for (const char of frase) {
+  console.log(char)
+}
+```
+
+## Spread e for...of.
+
+Com o for loop podemos manipular cada um dos elementos do objeto iterável.
+
+```js
+const buttons = document.querySelectorAll('button')
+for (const btn of buttons) {
+  btn.style.background = 'blue'
+}
+console.log(...buttons)
+```
+
+## Apenas Iteráveis.
+
+O for...of não irá funcionar em um objeto comum que não seja iterável.
+
+```js
+const carro = {
+  marca: 'Honda',
+  ano: 2018
+}
+// Erro, não é Iterável
+for (const propriedade of carro) {
+  console.log(propriedade)
+}
+```
+
+## For...in.
+
+Este loop irá retornar a chave (key) de todas as propriedades enumeráveis (que sejam símbolos) de um objeto.
+
+```js
+const carro = {
+  marca: 'Honda',
+  ano: 2018
+}
+for (const propriedade in carro) {
+  console.log(propriedade)
+}
+```
+
+## Array e for...in.
+
+Um array é um objeto, porém a chave de cada valor é igual ao seus index.
+
+```js
+const frutas = ['Banana', 'Morango', 'Uva']
+for (const index in frutas) {
+  console.log(index)
+}
+for (const index in frutas) {
+  console.log(frutas[index])
+}
+```
+
+## Chave e valor.
+
+Utilizando o for...in podemos retornar todas as chaves e valores de propriedades enumeráveis.
+
+```js
+const btn = document.querySelector('button')
+const btnStyles = getComputedStyle(btn)
+for (const style in btnStyles) {
+  console.log(`${style}: ${btnStyles[style]}`)
+}
+```
+
+## Do / While.
+
+Outro tipo de loop é Do / While. Não é muito utilizado.
+
+```js
+let i = 0
+do {
+  console.log(i++)
+} while (i <= 5)
+```
