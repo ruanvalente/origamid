@@ -819,3 +819,50 @@ do {
   console.log(i++)
 } while (i <= 5)
 ```
+
+## Exercícios.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Loops and Iterable</title>
+  </head>
+  <body>
+    <div class="app">
+      <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+      </ul>
+      <button>Vender</button>
+      <button>Comprar</button>
+    </div>
+    <script src="example.js"></script>
+  </body>
+</html>
+```
+
+```js
+'use strict'
+// Crie 4 li's na página
+// Utilizando o for...of
+// adicione uma classe a cada li
+
+const $liAll = document.querySelectorAll('li')
+
+for (const li of $liAll) {
+  li.classList.add('ative')
+}
+// Utilize o for...in para listar
+// todos as propriedades e valores
+// do objeto window
+
+for (const win in window) {
+  console.log(`${win}: ${window[win]}`)
+}
+```
