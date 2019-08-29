@@ -413,3 +413,7 @@ const regexp = /\u0040|\u00A9/g
 'andre@origamid.com ©'.replace(regexp, '---')
 // andre---origamid.com ---
 ```
+
+# Regex Substituição.
+
+## Referência da Seleção.
