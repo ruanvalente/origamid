@@ -650,3 +650,228 @@ for (tag of tags) {
 ```
 
 > Positive Lookbehind `(?<=)` não está disponível em todos os browsers.
+
+# Regex Métodos.
+
+## Regexp Constructor.
+
+Toda regexp é criada com o constructor **RegExp()** e herda as suas propriedades e métodos. Existem diferenças na sintaxe de uma RegExp criada diretamente em uma variável e de uma passada como argumento de **RegExp**.
+
+```js
+const regexp = /\w+/gi
+// Se passarmos uma string, não precisamos dos //
+// e devemos utilizar \\ para meta characters, pois é necessário
+// escapar a \ especial. As Flags são o segundo argumento
+const regexpObj1 = new RegExp('\\w+', 'gi')
+const regexpObj2 = new RegExp(/\w+/, 'gi')
+'JavaScript Linguagem 101'.replace(regexpObj1, 'X')
+// X X X
+```
+
+## Propriedades.
+
+Uma regexp possui propriedade com informações sobre as flags e o conteúdo da mesma.
+
+```js
+const regexp = /\w+/gi
+regexp.flags // 'gi'
+regexp.global // true
+regexp.ignoreCase // true
+regexp.multiline // false
+regexp.source // '\w+'
+```
+
+## regexp.test().
+
+O método **test()** verifica se existe ou não uma ocorrência da busca. Se existir ele retornar true. A próxima vez que chamarmos o mesmo, ele irá começar do index em que parou no último true.
+
+```js
+const regexp = /Java/g
+const frase = 'JavaScript e Java'
+regexp.lastIndex // 0
+regexp.test(frase) // true
+regexp.lastIndex // 4
+regexp.test(frase) // true
+regexp.lastIndex // 17
+regexp.test(frase) // false
+regexp.lastIndex // 0
+regexp.test(frase) // true (Reinicia
+regexp.lastIndex
+// 4
+```
+
+## test() em loop.
+
+Podemos utilizar o while loop, para mostrar enquanto a condição for verdadeira. Assim retornamos a quantidade de match's.
+
+```js
+const regexp = /Script/g
+const frase = 'JavaScript, TypeScript e CoffeeScript'
+let i = 1
+while (regexp.test(frase)) {
+  console.log(i++, regexp.lastIndex)
+}
+// 1 10
+// 2 22
+// 3 37
+```
+
+## regexp.exec().
+
+O **exec()** diferente do **test()**, irá retornar um Array com mais informações do que apenas um valor booleano.
+
+```js
+const regexp = /\w{2,}/g
+const frase = 'JavaScript, TypeScript e CoffeeScript'
+regexp.exec(frase)
+// ["JavaScript", index: 0, input: "JavaScript,
+// TypeScript e CoffeeScript", groups: undefined]
+regexp.exec(frase)
+// ["TypeScript", index: 12, input: "JavaScript,
+// TypeScript e CoffeeScript", groups: undefined]
+regexp.exec(frase)
+// ["CoffeeScript", index: 25, input: "JavaScript,
+// TypeScript e CoffeeScript", groups: undefined]
+regexp.exec(frase)
+// null
+regexp.exec(frase) // Reinicia
+// ["JavaScript", index: 0, input: "JavaScript,
+// TypeScript e CoffeeScript", groups: undefined]
+```
+
+## Loop com exec().
+
+Podemos fazer um loop com exec e parar o mesmo no momento que encontre null.
+
+```js
+const regexp = /\w{2,}/g
+const frase = 'JavaScript, TypeScript e CoffeeScript'
+let regexpResult
+while ((regexpResult = regexp.exec(frase)) !== null) {
+  console.log(regexpResult[0])
+}
+```
+
+## str.match().
+
+O **match()** é um método de string que pode receber como argumento uma Regexp. Existe uma direrença de resultado quando utilizamos a flag `g` ou não.
+
+```js
+const regexp = /\w{2,}/g
+const regexpSemG = /\w{2,}/
+const frase = 'JavaScript, TypeScript e CoffeeScript'
+frase.match(regexp)
+// ['JavaScript', 'TypeScript', 'CoffeeScript']
+frase.match(regexpSemG)
+// ["JavaScript", index: 0, input: "JavaScript,
+// TypeScript e CoffeeScript", groups: undefined]
+```
+
+> Se não tiver match retorna null.
+
+## str.split().
+
+O **split()** server para distribuirmos uma string em uma Array. Quebrando a string no argumento que for passado. Este método irá remover o match de array final.
+
+```js
+const frase = 'JavaScript, TypeScript, CoffeeScript'
+frase.split(', ')
+// ["JavaScript", "TypeScript", "CoffeeScript"]
+frase.split(/Script/g)
+// ["Java", ", Type", ", Coffee", ""]
+const tags = `
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+`
+tags.split(/(?<=<\/?)\w+/g).join('div')
+
+/*
+<div>
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>
+*/
+```
+
+## str.replace().
+
+O método **replace()** é o mais interessante por permitir a utilização de funções de callback para cada match que ele der com a Regexp.
+
+```js
+const tags = `
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+`
+tags.replace(/(?<=<\/?)\w+/g, 'div')
+
+/*
+<div>
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>
+*/
+```
+
+## Captura.
+
+É possível fazer uma referência ao grupo de captura dentro do argumento do replace. Então podemos utilizar `$&`, `$1` e mais.
+
+```js
+const tags = `
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+`
+tags.replace(/<li/g, '$& class="ativo"')
+/*
+<ul>
+ <li class="ativo">Item 1</li>
+ <li class="ativo">Item 2</li>
+ </ul>
+*/
+```
+
+## Grupo de Captura.
+
+É possível definirmos quantos grupos de captura quisermos.
+
+```js
+const emails = `
+empresa@email.com
+contato@email.com
+suporte@email.com
+`
+emails.replace(/(\w+@)[\w.]+/g, '$1gmail.com')
+// empresa@gmail.com
+// contato@gmail.com
+// suporte@gmail.com
+```
+
+## Callback.
+
+Para substituições mais complexas, podemos utilizar um callback como segundo argumento do replace. O valor do return será o que irá substituir cada match.
+
+```js
+const regexp = /(\w+)(@[\w]+)/g
+const emails = `joao@homail.com.br
+marta@ggmail.com.br
+bruna@oulook.com.br`
+
+emails.replace(regexp, function(...args) {
+  console.log(args)
+  if (args[2] === '@homail') {
+    return `${args[1]}@hotmail`
+  } else if (args[2] === '@ggmail') {
+    return `${args[1]}@gmail`
+  } else if (args[2] === '@oulook') {
+    return `${args[1]}@outlook`
+  } else {
+    return 'x'
+  }
+})
+```
