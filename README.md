@@ -36,11 +36,11 @@
 
   - [x] IIFE, factory function, clojures, debugging, destructuring, rest, iterables. :heavy_check_mark:
 
-- [x] Regular Expression :heavy_check_mark:
+- [x] Regular Expression. :heavy_check_mark:
 
   - Principais padrões e métodos.
 
-- Automação Front End.
+- [x] Automação Front End. :heavy_check_mark:
 
   - CLI, NPM, ESLint, Webpack, Babel e Git.
 
