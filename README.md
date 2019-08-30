@@ -36,7 +36,7 @@
 
   - [x] IIFE, factory function, clojures, debugging, destructuring, rest, iterables. :heavy_check_mark:
 
-- Regular Expression
+- [x] Regular Expression :heavy_check_mark:
 
   - Principais padrões e métodos.
 
