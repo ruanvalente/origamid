@@ -32,9 +32,9 @@
 
   - Class, constructor, get, set, extends e mais.
 
-- Mais JavaScript.
+- [x] Mais JavaScript. :heavy_check_mark:
 
-  - [x] IIFE, factory function, clojures, debugging, destructuring, rest, iterables. :heavy_check_mark:
+  - IIFE, factory function, clojures, debugging, destructuring, rest, iterables.
 
 - [x] Regular Expression. :heavy_check_mark:
 
