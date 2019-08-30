@@ -875,3 +875,120 @@ emails.replace(regexp, function(...args) {
   }
 })
 ```
+
+## Exercícios.
+
+### Validador de CPF.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Validação de CPF</title>
+    <style>
+      body {
+        background: #d8caca;
+      }
+      * {
+        font-family: monospace;
+        box-sizing: border-box;
+      }
+      label {
+        font-weight: bold;
+        font-size: 2.5rem;
+        color: #333;
+      }
+      input {
+        max-width: 80%;
+        display: block;
+        margin-top: 1rem;
+        padding: 0.875rem 1rem;
+        border: none;
+        border: 1px solid #333;
+      }
+
+      input.error {
+        border-color: red;
+      }
+      input.validated {
+        border-color: springgreen;
+      }
+      input::placeholder {
+        font-weight: bold;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <label>CPF</label>
+      <input type="text" data-js="cpf" placeholder="000.000.000-00" />
+    </form>
+    <script type="module" src="validateCPF.js"></script>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
+```
+
+`validadeCPF.js`
+
+```js
+export default class validadeCPF {
+  constructor(element) {
+    this.element = document.querySelector(element)
+  }
+
+  clean(cpf) {
+    return cpf.replace(/\D/g, '')
+  }
+
+  create(cpf) {
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '$1.$2.$3-$4')
+  }
+
+  format(cpf) {
+    const cleanCPF = this.clean(cpf)
+    return this.create(cleanCPF)
+  }
+
+  validate(cpf) {
+    const matchCPF = cpf.match(/(?:\d{3}[-.\s]?){3}\d{2}/g)
+    return matchCPF && matchCPF[0] == cpf
+  }
+
+  validateChange(cpfElement) {
+    if (!this.validate(cpfElement.value)) {
+      cpfElement.classList.add('error')
+      cpfElement.classList.remove('validated')
+    }
+
+    if (this.validate(cpfElement.value)) {
+      cpfElement.value = this.format(cpfElement.value)
+      cpfElement.classList.add('validated')
+      cpfElement.classList.remove('error')
+    }
+  }
+
+  addEvent() {
+    this.element.addEventListener('change', () => {
+      this.validateChange(this.element)
+    })
+  }
+
+  init() {
+    this.addEvent()
+    return this
+  }
+}
+```
+
+`main.js`
+
+```js
+import validadeCPF from './validateCPF.js'
+
+const validate = new validadeCPF('[data-js="cpf"]').init()
+```
