@@ -1,11 +1,12 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "prettier"],
   "env": {
     "browser": true
   },
   "rules": {
     "no-param-reassign": 0,
     "import/extensions": 0,
-    "no-console": 0
+    "no-console": 0,
+    "no-use-before-define": 0
   }
 }
