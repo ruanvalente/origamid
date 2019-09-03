@@ -1,5 +1,5 @@
 import initScrollSection from './modules/initScrollSection.js';
-import initScroll from './modules/initScroll.js';
+import InitScroll from './modules/initScroll.js';
 import initTab from './modules/initTab.js';
 import initAccordion from './modules/initAccordion.js';
 import initModal from './modules/initModal.js';
@@ -9,8 +9,10 @@ import initMenuMobile from './modules/initMenuMobile.js';
 import initFetchAnimals from './modules/initFetchAnimals.js';
 import initFetchBitcoins from './modules/initFetchBitcoins.js';
 
+const initScroll = new InitScroll('[data-js="menu"] a[href^="#"]');
+initScroll.init();
+
 initScrollSection();
-initScroll();
 initTab();
 initAccordion();
 initModal();
