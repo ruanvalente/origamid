@@ -1,4 +1,4 @@
-export default class InitTab {
+export default class Tab {
   constructor(menu, context) {
     this.$tabMenu = document.querySelectorAll(menu);
     this.$tabContent = document.querySelectorAll(context);
