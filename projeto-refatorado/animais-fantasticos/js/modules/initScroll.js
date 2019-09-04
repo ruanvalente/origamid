@@ -1,4 +1,4 @@
-export default class InitScroll {
+export default class Scroll {
   constructor(links, options) {
     this.links = document.querySelectorAll(links);
     if (options === undefined) {

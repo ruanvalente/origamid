@@ -1,4 +1,4 @@
-export default class InitAccordion {
+export default class Accordion {
   constructor(list) {
     this.$accordionList = document.querySelectorAll(list);
     this.activeClasse = 'ativo';
