@@ -1,4 +1,4 @@
-import initScrollSection from './modules/initScrollSection.js';
+import ScrollSection from './modules/initScrollSection.js';
 import Scroll from './modules/initScroll.js';
 import Tab from './modules/initTab.js';
 import Accordion from './modules/initAccordion.js';
@@ -28,7 +28,9 @@ modal.init();
 const tooltip = new Tooltip('[data-js="tooltip"]');
 tooltip.init();
 
-initScrollSection();
+const scrollSection = new ScrollSection('[data-js="scroll"]');
+scrollSection.init();
+
 initDropdownMenu();
 initMenuMobile();
 
