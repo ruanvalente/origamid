@@ -1,7 +1,7 @@
 import AnimateNumbers from './initAnimateNumbers.js';
 
-export default function initFetchAnimals() {
-  async function fetchAnimals(url) {
+export default function fetchAnimals(url, target) {
+  async function getFetchAnimals() {
     try {
       const dataAnimals = await fetch(url);
       const dataResponseAnimals = await dataAnimals.json();
@@ -18,7 +18,7 @@ export default function initFetchAnimals() {
   }
 
   function createAnimal(animal) {
-    const $numbersGrid = document.querySelector('.numeros-grid');
+    const $numbersGrid = document.querySelector(target);
     const $divAnimal = document.createElement('div');
     $divAnimal.classList.add('numero-animal');
     $divAnimal.innerHTML = `
@@ -28,5 +28,5 @@ export default function initFetchAnimals() {
     $numbersGrid.appendChild($divAnimal);
   }
 
-  fetchAnimals('./animaisapi.json');
+  return getFetchAnimals();
 }
