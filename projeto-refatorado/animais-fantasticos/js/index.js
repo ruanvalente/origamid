@@ -7,7 +7,7 @@ import Tooltip from './modules/initTooltip.js';
 import initDropdownMenu from './modules/initDropdownMenu.js';
 import initMenuMobile from './modules/initMenuMobile.js';
 import initFetchAnimals from './modules/initFetchAnimals.js';
-import initFetchBitcoins from './modules/initFetchBitcoins.js';
+import fetchBitcoins from './modules/initFetchBitcoins.js';
 
 const scroll = new Scroll('[data-js="menu"] a[href^="#"]');
 scroll.init();
@@ -32,4 +32,5 @@ initScrollSection();
 initDropdownMenu();
 initMenuMobile();
 initFetchAnimals();
-initFetchBitcoins();
+
+fetchBitcoins('https://blockchain.info/ticker', '[data-js="bitcoin"]');

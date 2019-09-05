@@ -1,7 +1,7 @@
-export default function initFetchBitcoins() {
-  async function getBitcoin(url) {
+export default function fetchBitcoins(url, target) {
+  async function getBitcoin() {
     try {
-      const $bitcoinElement = document.querySelector('[data-js="bitcoin"]');
+      const $bitcoinElement = document.querySelector(target);
       const data = await fetch(url);
       const dataResponse = await data.json();
       const donation = 100 / dataResponse.BRL.buy;
@@ -10,5 +10,5 @@ export default function initFetchBitcoins() {
       console.log(Error(error));
     }
   }
-  getBitcoin('https://blockchain.info/ticker');
+  return getBitcoin();
 }
