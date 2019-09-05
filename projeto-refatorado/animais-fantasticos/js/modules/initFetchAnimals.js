@@ -1,4 +1,4 @@
-import initAnimateNumbers from './initAnimateNumbers.js';
+import AnimateNumbers from './initAnimateNumbers.js';
 
 export default function initFetchAnimals() {
   async function fetchAnimals(url) {
@@ -7,7 +7,11 @@ export default function initFetchAnimals() {
       const dataResponseAnimals = await dataAnimals.json();
 
       dataResponseAnimals.forEach(animal => createAnimal(animal));
-      initAnimateNumbers();
+      const animateNumbers = new AnimateNumbers(
+        '[data-js="number"]',
+        '.numeros'
+      );
+      animateNumbers.init();
     } catch (error) {
       console.log(error);
     }
