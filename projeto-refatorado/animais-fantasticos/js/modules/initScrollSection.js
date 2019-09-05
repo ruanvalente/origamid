@@ -1,8 +1,11 @@
-export default function initScrollSection() {
-  const $sections = document.querySelectorAll('[data-js="scroll"]');
+export default class ScrollSection {
+  constructor(sections) {
+    this.$sections = document.querySelectorAll(sections);
+    this.activeSectionScroll = this.activeSectionScroll.bind(this);
+  }
 
-  function activeSectionScroll() {
-    $sections.forEach(section => {
+  activeSectionScroll() {
+    this.$sections.forEach(section => {
       const sectionTop = section.getBoundingClientRect().top;
       const haltOfTheWindow = (sectionTop - window.innerHeight) * 0.6;
       if (haltOfTheWindow < 0) {
@@ -11,8 +14,10 @@ export default function initScrollSection() {
     });
   }
 
-  if ($sections.length) {
-    activeSectionScroll();
-    window.addEventListener('scroll', activeSectionScroll);
+  init() {
+    if (this.$sections.length) {
+      this.activeSectionScroll();
+      window.addEventListener('scroll', this.activeSectionScroll);
+    }
   }
 }
