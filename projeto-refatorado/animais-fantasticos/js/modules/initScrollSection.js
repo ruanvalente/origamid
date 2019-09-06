@@ -1,23 +1,36 @@
 export default class ScrollSection {
   constructor(sections) {
     this.$sections = document.querySelectorAll(sections);
-    this.activeSectionScroll = this.activeSectionScroll.bind(this);
+    this.checkDistance = this.checkDistance.bind(this);
+    this.haltOfTheWindow = window.innerHeight * 0.6;
   }
 
-  activeSectionScroll() {
-    this.$sections.forEach(section => {
-      const sectionTop = section.getBoundingClientRect().top;
-      const haltOfTheWindow = (sectionTop - window.innerHeight) * 0.6;
-      if (haltOfTheWindow < 0) {
-        section.classList.add('ativo');
+  getDistance() {
+    this.distance = [...this.$sections].map(section => {
+      const offset = section.offsetTop;
+      return {
+        element: section,
+        offset: Math.floor(offset - this.haltOfTheWindow)
+      };
+    });
+  }
+
+  checkDistance() {
+    this.distance.forEach(item => {
+      if (window.pageYOffset > item.offset) {
+        item.element.classList.add('ativo');
+      } else {
+        item.element.classList.remove('ativo');
       }
     });
   }
 
   init() {
     if (this.$sections.length) {
-      this.activeSectionScroll();
-      window.addEventListener('scroll', this.activeSectionScroll);
+      this.getDistance();
+      this.checkDistance();
+      window.addEventListener('scroll', this.checkDistance);
     }
+    return this;
   }
 }
