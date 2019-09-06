@@ -1,7 +1,9 @@
+import initDebounce from './initDebounce.js';
+
 export default class ScrollSection {
   constructor(sections) {
     this.$sections = document.querySelectorAll(sections);
-    this.checkDistance = this.checkDistance.bind(this);
+    this.checkDistance = initDebounce(this.checkDistance.bind(this), 200);
     this.haltOfTheWindow = window.innerHeight * 0.6;
   }
 
