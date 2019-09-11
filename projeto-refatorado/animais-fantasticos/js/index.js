@@ -4,7 +4,7 @@ import Tab from './modules/initTab.js';
 import Accordion from './modules/initAccordion.js';
 import Modal from './modules/initModal.js';
 import Tooltip from './modules/initTooltip.js';
-import initDropdownMenu from './modules/initDropdownMenu.js';
+import DropdownMenu from './modules/initDropdownMenu.js';
 import initMenuMobile from './modules/initMenuMobile.js';
 import fetchAnimals from './modules/initFetchAnimals.js';
 import fetchBitcoins from './modules/initFetchBitcoins.js';
@@ -31,7 +31,12 @@ tooltip.init();
 const scrollSection = new ScrollSection('[data-js="scroll"]');
 scrollSection.init();
 
-initDropdownMenu();
+const dropdownMenu = new DropdownMenu('[data-js="dropdown"]', [
+  'touchstart',
+  'click'
+]);
+dropdownMenu.init();
+
 initMenuMobile();
 
 fetchAnimals('./animaisapi.json', '.numeros-grid');
