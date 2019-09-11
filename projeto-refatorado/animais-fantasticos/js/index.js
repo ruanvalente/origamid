@@ -8,6 +8,7 @@ import DropdownMenu from './modules/initDropdownMenu.js';
 import MenuMobile from './modules/initMenuMobile.js';
 import fetchAnimals from './modules/initFetchAnimals.js';
 import fetchBitcoins from './modules/initFetchBitcoins.js';
+import HoursOfOperation from './modules/initHoursOfOperation.js';
 
 const scroll = new Scroll('[data-js="menu"] a[href^="#"]');
 scroll.init();
@@ -43,6 +44,9 @@ const menuMobile = new MenuMobile(
   ['click', 'touchstart']
 );
 menuMobile.init();
+
+const hoursOfOperation = new HoursOfOperation('[data-weeks]');
+hoursOfOperation.init();
 
 fetchAnimals('./animaisapi.json', '.numeros-grid');
 
