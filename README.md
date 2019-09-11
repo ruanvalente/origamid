@@ -44,7 +44,7 @@
 
   - CLI, NPM, ESLint, Webpack, Babel e Git.
 
-- Projeto Final.
+- [x] Projeto Final. :heavy_check_mark:
 
   - Refatoração do projeto utilizando classes. Praticando com Git, ESLint e mais.
 
