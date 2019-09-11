@@ -5,7 +5,7 @@ import Accordion from './modules/initAccordion.js';
 import Modal from './modules/initModal.js';
 import Tooltip from './modules/initTooltip.js';
 import DropdownMenu from './modules/initDropdownMenu.js';
-import initMenuMobile from './modules/initMenuMobile.js';
+import MenuMobile from './modules/initMenuMobile.js';
 import fetchAnimals from './modules/initFetchAnimals.js';
 import fetchBitcoins from './modules/initFetchBitcoins.js';
 
@@ -37,7 +37,12 @@ const dropdownMenu = new DropdownMenu('[data-js="dropdown"]', [
 ]);
 dropdownMenu.init();
 
-initMenuMobile();
+const menuMobile = new MenuMobile(
+  '[data-js="button-menu"]',
+  '[data-js="list-menu"]',
+  ['click', 'touchstart']
+);
+menuMobile.init();
 
 fetchAnimals('./animaisapi.json', '.numeros-grid');
 
