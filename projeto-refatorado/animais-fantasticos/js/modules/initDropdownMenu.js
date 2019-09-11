@@ -26,6 +26,9 @@ export default class DropdownMenu {
   }
 
   init() {
-    this.addDropdownMenuEvents();
+    if (this.$dropdownMenus) {
+      this.addDropdownMenuEvents();
+    }
+    return this;
   }
 }
