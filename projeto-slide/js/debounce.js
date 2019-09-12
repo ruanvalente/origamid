@@ -1,4 +1,4 @@
-export default function initDebouce(fn, delay) {
+export default function initDebounce(fn, delay) {
   let timer;
   return (...args) => {
     if (timer) {
