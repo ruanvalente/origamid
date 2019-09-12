@@ -4,4 +4,4 @@ import Slide from './slide.js';
 const slide = new Slide('.slide', '.wrapper');
 
 slide.init();
-slide.changeSlide();
+slide.changeSlide(0);

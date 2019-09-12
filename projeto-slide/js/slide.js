@@ -9,6 +9,10 @@ export default class Slide {
     };
   }
 
+  transition(active) {
+    this.slide.style.transition = active ? 'transform .3s' : '';
+  }
+
   moveSlide(distX) {
     this.distances.moviePosition = distX;
     this.slide.style.transform = `translate3d(${distX}px, 0, 0)`;
@@ -32,6 +36,7 @@ export default class Slide {
       moveType = 'touchmove';
     }
     this.wrapper.addEventListener(moveType, this.onMove);
+    this.transition(false);
   }
 
   onMove(e) {
@@ -45,6 +50,24 @@ export default class Slide {
     const removeTypeMove = e.type === 'mouseup' ? 'mousemove' : 'touchmove';
     this.wrapper.removeEventListener(removeTypeMove, this.onMove);
     this.distances.finalPosition = this.distances.moviePosition;
+    this.transition(true);
+    this.changeSlideOnEnd();
+  }
+
+  changeSlideOnEnd() {
+    if (
+      this.distances.movementPosition > 120 &&
+      this.index.active !== undefined
+    ) {
+      this.activeNextSlide();
+    } else if (
+      this.distances.movementPosition < 120 &&
+      this.index.prev !== undefined
+    ) {
+      this.activeNextSlide();
+    } else {
+      this.changeSlide(this.index.active);
+    }
   }
 
   addSlideEvents() {
@@ -82,18 +105,30 @@ export default class Slide {
       active: index,
       next: index === last ? undefined : index + 1
     };
-    console.log(this.index);
   }
 
-  changeSlide(index = 0) {
+  changeSlide(index) {
     const activeSlide = this.slideToArray[index];
     this.moveSlide(activeSlide.position);
     this.slideIndexNav(index);
     this.distances.finalPosition = activeSlide.position;
   }
 
+  activePrevSlide() {
+    if (this.index.prev !== undefined) {
+      this.changeSlide(this.index.prev);
+    }
+  }
+
+  activeNextSlide() {
+    if (this.index.next !== undefined) {
+      this.changeSlide(this.index.next);
+    }
+  }
+
   init() {
     this.bindEvents();
+    this.transition(true);
     this.addSlideEvents();
     this.slideConfing();
     return this;
