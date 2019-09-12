@@ -9,7 +9,7 @@ export default class Slide {
     };
   }
 
-  movieSlide(distX) {
+  moveSlide(distX) {
     this.distances.moviePosition = distX;
     this.slide.style.transform = `translate3d(${distX}px, 0, 0)`;
   }
@@ -38,7 +38,7 @@ export default class Slide {
     const pointerPosition =
       e.type === 'mousemove' ? e.clientX : e.changedTouches[0].clientX;
     const finalPosition = this.updatePostion(pointerPosition);
-    this.movieSlide(finalPosition);
+    this.moveSlide(finalPosition);
   }
 
   onEnd(e) {
@@ -60,8 +60,42 @@ export default class Slide {
     this.onEnd = this.onEnd.bind(this);
   }
 
+  slidePosition(slide) {
+    const margin = (this.wrapper.offsetWidth - slide.offsetWidth) / 2;
+    return -(slide.offsetLeft - margin);
+  }
+
+  slideConfing() {
+    this.slideToArray = [...this.slide.children].map(element => {
+      const position = this.slidePosition(element);
+      return {
+        position,
+        element
+      };
+    });
+  }
+
+  slideIndexNav(index) {
+    const last = this.slideToArray.length - 1;
+    this.index = {
+      prev: index ? index - 1 : undefined,
+      active: index,
+      next: index === last ? undefined : index + 1
+    };
+    console.log(this.index);
+  }
+
+  changeSlide(index = 0) {
+    const activeSlide = this.slideToArray[index];
+    this.moveSlide(activeSlide.position);
+    this.slideIndexNav(index);
+    this.distances.finalPosition = activeSlide.position;
+  }
+
   init() {
     this.bindEvents();
     this.addSlideEvents();
+    this.slideConfing();
+    return this;
   }
 }
