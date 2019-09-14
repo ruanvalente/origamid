@@ -48,7 +48,7 @@
 
   - Refatoração do projeto utilizando classes. Praticando com Git, ESLint e mais.
 
-- Slide.
+- [x] Slide. :heavy_check_mark:
 
   - Criação do plugin de slide.
 
